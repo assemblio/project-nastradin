@@ -27,10 +27,15 @@
 		<thead>
 		<tr>
 			<th></th>
-			<th>Name</th>
+			<th>First Name</th>
 			<th>Last Name</th> 
 			<th>Gender</th>
-			<th>Room</th>
+			<th>Birth Date</th>
+			<th>City</th>
+			<th>Industry</th>
+			<th>Profession</th>
+			<th>Minimum Salary Requirement</th>
+			<th>Highest Level Of Education</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -48,7 +53,25 @@
 			<td>
 				{{result['gender']}}
 			</td>
-
+			<td>
+				{{result['birth_date']}}
+			</td>
+			<td>
+				{{result['city']}}
+			</td>
+			<td>
+				{{result['industry']}}
+			</td>
+			<td>
+				{{result['profession']}}
+			</td>
+			
+			<td>
+				{{result['minimum_salary_requirement']}}
+			</td>
+			<td>
+				{{result['highest_level_of_education']}}
+			</td>
 		</tr>
 {% endfor %}
   		</tbody>
