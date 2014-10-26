@@ -6,81 +6,18 @@
 <div class="modal fade not-implemented-message-model" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-md">
 		<div class="modal-content">
-			<br/>
-			The possibility to edit the applicant resume is not implemented yet.
-			<br/><br/>
+			<br>
+			The possibility to edit a person's resume is not available one this prototype.
+			<br><br>
 		</div>
 	</div>
 </div>
 
-	
-{% if session.logged_in %}
-	<div class="patient-list-container" style="padding:25px;">
-		<form action="{{ url_for('personal-information') }}" method="post" class="form-horizontal">
-			<button type="submit" class="btn btn-primary">Start writing your CV.</button>
-		</form>
-	</div>
+<div class="person-list-container" style="padding:25px;">
+    <form action="{{ url_for('person') }}" method="get" class="form-horizontal">
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
 
-	{% if applicant_docs and applicant_docs.collection.count() > 0 %}
-	<div class="patient-list-container" style="padding:25px;">
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Lastname</th>
-					<th>Personal ID</th>
-					<th>Birth Place</th>
-					<th>Birth Date</th>
-				</tr>
-			</thead>
-
-			{% for applicant_doc in applicant_docs %}
-			<tbody>
-				<tr>			
-					<td>{{ applicant_doc.applicant.name }}</td>
-					<td>{{ applicant_doc.applicant.last_name }}</td>
-					<td>{{ applicant_doc.applicant.personal_id }}</td>
-					<td>{{ applicant_doc.applicant.birth_place }}</td>
-					<td>
-						<table> <!-- FIXME: use div tags instead of table -->
-							<tr>
-								<td>
-									<a href="/applicant/record/{{ applicant_doc._id }}" class="btn btn-default btn-sm">
-                    					<span class="glyphicon glyphicon-search"></span>
-                					</a>
-								</td>
-								<td>
-									<!--<form action="{{ url_for('edit_applicant_record') }}" method="post">-->
-										<input type="hidden" name="docId" id="docId" value="{{ applicant_doc._id }}" />
-										<button class="btn btn-default btn-sm" data-toggle="modal" data-target=".not-implemented-message-model">
-											<span class="glyphicon glyphicon-wrench"></span>
-										</button>
-									<!--</form>-->
-								</td>
-								<td>
-									<form action="{{ url_for('delete_applicant_record') }}" method="post">
-										<input type="hidden" name="docId" id="docId" value="{{ applicant_doc._id }}" />
-										<button type="submit" class="btn btn-default btn-sm">
-				  							<span class="glyphicon glyphicon-remove"></span>
-										</button>
-									</form>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</tbody>
-			{% endfor %}
-		</table>
-	</div>
-
-	{% endif %}	
-
-{% else %}
-<div>
-	<h3>Mirësevini në Deloitte Human Resourses System.</h3>
-	<h4>Ju lutem kyçuni që të filloni.</h4>
-</div>	
-{% endif %}
 
 {% endblock %}

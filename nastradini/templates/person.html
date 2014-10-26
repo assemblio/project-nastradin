@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<script>
+    $(document).ready(function() {
+        $('.btn').button();
+
+        $('.date-picker').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: 'dd/mm/yyyy',
+        });
+    });
+</script>
+
+<form action="{{ url_for('person') }}" method="post" class="form-horizontal">
+
+    <!-- FIRST NAME -->
+    <div class="form-group">
+        {{ form.first_name.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.first_name(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- LAST NAME -->
+    <div class="form-group">
+        {{ form.last_name.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.last_name(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- BIRTH DATE -->
+    <div class="form-group">
+        {{ form.birth_date.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.birth_date(class_="form-control date-picker") }}
+         </div>
+    </div>
+
+    <!-- GENDER -->
+    <!-- TODO: ADD GENDER RADIO BUTTONS -->
+
+    <!-- CITY -->
+    <div class="form-group">
+        {{ form.city.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.city(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- HIGHEST LEVEL OF EDUCATION -->
+    <div class="form-group">
+        {{ form.highest_level_of_education.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.highest_level_of_education(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- INDUSTRY -->
+    <div class="form-group">
+        {{ form.industry.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.industry(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- PROFESSION -->
+    <div class="form-group">
+        {{ form.profession.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.profession(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="form-group">
+        {{ form.skills.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.skills(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- MINIMUM SALARY REQUIREMENT -->
+    <div class="form-group">
+        {{ form.minimum_salary_requirement.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.minimum_salary_requirement(class_="form-control") }}
+        </div>
+    </div>
+
+    <br>
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+    <br>
+
+</form>
+
+{% endblock %}

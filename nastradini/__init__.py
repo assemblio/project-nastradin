@@ -1,11 +1,9 @@
 import os
 import ConfigParser
-import logging
 
 from logging.handlers import RotatingFileHandler
 
 from flask import Flask
-from flask.views import View
 from flask.ext.pymongo import PyMongo
 
 from utils.utils import Utils
@@ -13,6 +11,7 @@ from utils.utils import Utils
 # Create MongoDB database object.
 mongo = PyMongo()
 utils = Utils()
+
 
 def create_app():
     ''' Create the Flask app.
@@ -53,8 +52,6 @@ def load_config(app):
     config.read(config_filepath)
 
     # Set up config properties
-    app.config['USERNAME'] = config.get('Application', 'USERNAME')
-    app.config['PASSWORD'] = config.get('Application', 'PASSWORD')
     app.config['SERVER_PORT'] = config.get('Application', 'SERVER_PORT')
 
     app.config['MONGO_DBNAME'] = config.get('Mongo', 'DB_NAME')
@@ -99,14 +96,7 @@ def configure_logging(app):
 
 # Import forms
 from views.index import Index
-from views.login import Login
-from views.logout import Logout
-from views.forms.application import Applicant
-from views.forms.personalinformation import Personal
-from views.forms.educationinformation import Education
-from views.forms.experienceinformation import Experience
-from views.forms.other import Other
-from views.applicantrecord import ApplicantRecord
+from views.forms.person import Person
 
 
 def register_url_rules(app):
@@ -119,18 +109,4 @@ def register_url_rules(app):
     app.add_url_rule('/', view_func=Index.as_view('index'))
 
     # Login/logout forms.
-    app.add_url_rule('/login', view_func=Login.as_view('login'))
-    app.add_url_rule('/logout', view_func=Logout.as_view('logout'))
-
-    # Applicant registration forms.
-    app.add_url_rule('/applicant-information', view_func=Applicant.as_view('applicant-information'))
-    app.add_url_rule('/personal-information', view_func=Personal.as_view('personal-information'))
-    app.add_url_rule('/education-information', view_func=Education.as_view('education-information'))
-    app.add_url_rule('/experience-information', view_func=Experience.as_view('experience-information'))
-    app.add_url_rule('/other-information', view_func=Other.as_view('other-information'))
-    # TODO: Load edit forms
-
-    # View Applicant record
-    app.add_url_rule('/applicant/record/<string:doc_id>', view_func=ApplicantRecord.as_view('show_applicant_record'))
-    app.add_url_rule('/applicant/record/delete', view_func=ApplicantRecord.as_view('delete_applicant_record'))
-    app.add_url_rule('/applicant/record/edit', view_func=ApplicantRecord.as_view('edit_applicant_record'))
+    app.add_url_rule('/person', view_func=Person.as_view('person'))
