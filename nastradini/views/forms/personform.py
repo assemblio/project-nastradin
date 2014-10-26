@@ -12,11 +12,11 @@ class PersonForm(Form):
         choices=[
             ('Male', 'Male'),
             ('Female', 'Female')
-        ])
-    city = TextField('City')
-    highest_level_of_education = TextField('Highest Level of Education')
-    industry = TextField('Industry')
-    profession = TextField('Profession')
+        ]) #TODO: Make this a radio button in the HTML form.
+    city = TextField('City') #TODO: This needs to be select list: [Prishtina, Ferizaj, Gjakova, Gjilan, Prizren]
+    highest_level_of_education = TextField('Highest Level of Education') #TODO: This needs to be select list: ["High School", "Undergraduate", "Graduate", "Doctoral"]
+    industry = TextField('Industry') #TODO: This needs to be select list: [Construction, Education, Government, Technology]
+    profession = TextField('Profession')  #TODO: This needs to be select list: [Electrician, Teacher, Project Manager, Software Engineer]
     skills = TextAreaField('Skills (Comma Separated)')
     minimum_salary_requirement = TextField(
-        'Minimum Salary Requirement (Monthly)')
+        'Minimum Salary Requirement (Monthly)')  #TODO: This needs to be select list: [200-299, 300-399, 400-499, 500-599, 600-699, 700-799, 800-899, 900-999, 1000+]
