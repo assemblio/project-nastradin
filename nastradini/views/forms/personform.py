@@ -7,12 +7,7 @@ class PersonForm(Form):
     first_name = TextField('First Name')
     last_name = TextField('Last Name')
     birth_date = DateField('Birth Date')
-    gender = RadioField(
-        'Gender',
-        choices=[
-            ('Male', 'Male'),
-            ('Female', 'Female')
-        ]) #TODO: Make this a radio button in the HTML form.
+    gender = RadioField('Gender', choices=[('Male', 'Male'), ('Female', 'Female')], default='Mashkull')
     city = TextField('City') #TODO: This needs to be select list: [Prishtina, Ferizaj, Gjakova, Gjilan, Prizren]
     highest_level_of_education = TextField('Highest Level of Education') #TODO: This needs to be select list: ["High School", "Undergraduate", "Graduate", "Doctoral"]
     industry = TextField('Industry') #TODO: This needs to be select list: [Construction, Education, Government, Technology]
