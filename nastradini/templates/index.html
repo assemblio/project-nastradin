@@ -18,6 +18,42 @@
         <button type="submit" class="btn btn-primary">Register</button>
     </form>
 </div>
+<div class="person-table-list" style="padding:25px;">
+
+<table class="table" style="width:800px">  
+
+{% for result in results %}
+	{% if loop.index == 1 %}
+		<thead>
+		<tr>
+			<th></th>
+			<th>Name</th>
+			<th>Last Name</th> 
+			<th>Gender</th>
+			<th>Room</th>
+		</tr>
+		</thead>
+		<tbody>
+	{% endif %}
+		<tr>
+			<td>
+				{{ loop.index }}
+			</td>
+			<td>
+				{{result['first_name']}}
+			</td>
+			<td>
+				{{result['last_name']}}
+			</td>
+			<td>
+				{{result['gender']}}
+			</td>
+
+		</tr>
+{% endfor %}
+  		</tbody>
+</table>
+</div>
 
 
 {% endblock %}

@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 config.cfg
+config-template.cfg
 *.*~
 # C extensions
 *.so
