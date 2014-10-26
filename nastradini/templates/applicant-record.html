@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h3>Resume of the applicant |NAME OF THE APPLICANT| </h3>
+<br>
+<h3 style="padding-left:25px;">Applicant Identification</h3>
+<br>
+
+<table class="patient-view-table">
+	<tr>
+		<td class="property-name-col">Name:</td>
+		<td class="property-value-col">{{ applicant_doc.applicant.emri }}</td>
+	</tr>
+	<tr>
+		<td class="property-name-col">Lastname:</td>
+		<td class="property-value-col">{{ applicant_doc.applicant.mbiemri }}</td>
+	</tr>
+	<tr>
+		<td class="property-name-col">Gender:</td>
+		<td class="property-value-col">{{ applicant_doc.applicant.gjinia }}</td>
+	</tr>
+	<tr>
+		<td class="property-name-col">Personal ID:</td>
+		<td class="property-value-col">{{ applicant_doc.applicant.numriPersonal }}</td>
+	</tr>
+	<tr>
+		<td class="property-name-col">Birth Date:</td>
+		<td class="property-value-col">{{ applicant_doc.applicant.dataLindjes }}</td>
+	</tr>
+	<tr>
+		<td class="property-name-col">Birth Place:</td>
+		<td class="property-value-col">{{ applicant_doc.applicant.vendiLindjes }}</td>
+	</tr>
+	<tr>
+		<td class="property-name-col">Etnicity:</td>
+		<td class="property-value-col">{{ applicant_doc.applicant.etniciteti }}</td>
+	</tr>
+	<tr>
+		<td class="property-name-col">Address:</td>
+		<td class="property-value-col">{{ applicant_doc.applicant.vendbanimi }}</td>
+	</tr>
+	<tr>
+		<td class="property-name-col">Actual Profession:</td>
+		<td class="property-value-col">{{ applicant_doc.applicant.professioni }}</td>
+	</tr>
+</table>
+
+<br>
+<br>
+{% endblock %}
