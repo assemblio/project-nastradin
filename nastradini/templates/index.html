@@ -14,9 +14,20 @@
 </div>
 
 <div class="person-list-container" style="padding:25px;">
-    <form action="{{ url_for('person') }}" method="get" class="form-horizontal">
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
+    <table>
+        <tr>
+            <td>
+                <form action="{{ url_for('person') }}" method="get" class="form-horizontal">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </td>
+            <td>
+                <form action="{{ url_for('search') }}" method="get" class="form-horizontal">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </td>
+        </tr>
+    </table>
 </div>
 
 

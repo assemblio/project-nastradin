@@ -97,6 +97,7 @@ def configure_logging(app):
 # Import forms
 from views.index import Index
 from views.forms.person import Person
+from views.forms.search import Search
 
 
 def register_url_rules(app):
@@ -108,5 +109,8 @@ def register_url_rules(app):
     # Index page form.
     app.add_url_rule('/', view_func=Index.as_view('index'))
 
-    # Login/logout forms.
+    # Registration form.
     app.add_url_rule('/person', view_func=Person.as_view('person'))
+
+    # Search form.
+    app.add_url_rule('/search', view_func=Search.as_view('search'))
