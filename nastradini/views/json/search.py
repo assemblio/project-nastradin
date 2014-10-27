@@ -44,7 +44,23 @@ class SearchRequest(View):
         result['gender-distribution']['male'] = male
         result['gender-distribution']['female'] = female
 
-        print result['gender-distribution']
+        result['salary'] = {}
+        string = minimum_salary + "-" +maximum_salary
+        print string
+        salary = mongo.db.persons.aggregate([
+            {
+                "$group": {
+                    "_id": {
+                        "salary": "$minimum_salary_requirement"
+                    },
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ])
+        result['salary'] = salary
+
         # Build response object.
         resp = Response(
             response=json_util.dumps(result), mimetype='application/json')
