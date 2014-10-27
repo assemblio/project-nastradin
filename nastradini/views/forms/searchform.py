@@ -5,23 +5,23 @@ from wtforms import SelectField
 class SearchForm(Form):
 
     highest_level_of_education = SelectField(
-    	'Highest Level of Education',
-    	choices=[
-    	("All","All"),
-    	("High School","High School"),
-    	("Undergraduate","Undergraduate"),
-    	("Graduate","Graduate"),
-    	("Doctoral","Doctoral")
-    	]
-    	) 
+        'Highest Level of Education',
+        choices=[
+        ("All", "All"),
+        ("High School", "High School"),
+        ("Undergraduate", "Undergraduate"),
+        ("Graduate", "Graduate"),
+        ("Doctoral", "Doctoral")
+        ]
+    )
 
     industry = SelectField('Industry',
         choices=[
-        ("All","All"),
-        ('Construction','Construction'),
-        ('Education','Education'),
-        ('Government','Government'),
-        ('Technology','Technology')
+        ("All", "All"),
+        ('Construction', 'Construction'),
+        ('Education', 'Education'),
+        ('Government', 'Government'),
+        ('Technology', 'Technology')
         ]
     )
 

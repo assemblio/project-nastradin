@@ -14,14 +14,37 @@
         // TODO: Build search URL.
         // i.e. add the URL search parameters.
         // e.g. ?education=High School&industry=Construction
-        url = "/json/search"
+        highest_level_of_education = $( "#highest_level_of_education option:selected" ).text();
+        industry = $( "#industry option:selected" ).text();
+        profession = $( "#profession option:selected" ).text();
+        minimum_salary = $( "#minimum_salary option:selected" ).text();
+        maximum_salary = $( "#maximum_salary option:selected" ).text();
+        url = "/json/search?education="+highest_level_of_education+"&industry="+industry+"&profession="+profession+"&minimum_salary="+minimum_salary+"&maximum_salary="+maximum_salary;
 
         $.get(url, function( results ) {
-            // TODO: Create result rows for HTML table.
             // Each row is a result item.
+            for (var index in results) {
+                    $("#table_rows").append("<tr class='person-row' data-resume-id=" + results[index]["_id"] + ">" +
+                        "<td></td>"+
+                        "<td>"+results[index]["first_name"]+"</td>"+
+                        "<td>"+results[index]["last_name"]+"</td>"+
+                        "<td>"+results[index]["gender"]+"</td>"+
+                        "<td>"+results[index]["birth_date"]+"</td>"+
+                        "<td>"+results[index]["city"]+"</td>"+
+                        "<td>"+results[index]["industry"]+"</td>"+
+                        "<td>"+results[index]["profession"]+"</td>"+
+                        "<td>"+results[index]["minimum_salary_requirement"]+"</td>"+
+                        "<td>"+results[index]["highest_level_of_education"]+"</td>"+
+                        "</tr>");
+            }
 
-            // TODO: Don't forget to remove this console.log once you are done.
-            console.log(results);
+            $(".person-row").click(function() {
+                var resumeId = $(this).attr('data-resume-id');
+                window.location.href = "/profile/" + resumeId
+            });
+
+            
+            
         });  
     }
 </script>
@@ -29,9 +52,9 @@
 <form class="form-horizontal">
 
     <!-- HIGHEST LEVEL OF EDUCATION -->
-    <div class="form-group">
+    <div class="form-group" >
         {{ form.highest_level_of_education.label(class_="control-label col-xs-4") }}
-        <div class="col-xs-5">
+        <div class="col-xs-5" id="highest_level_of_education" >
             {{ form.highest_level_of_education(class_="form-control") }}
         </div>
     </div>
@@ -39,7 +62,7 @@
     <!-- INDUSTRY -->
     <div class="form-group">
         {{ form.industry.label(class_="control-label col-xs-4") }}
-        <div class="col-xs-5">
+        <div class="col-xs-5" id="industry">
             {{ form.industry(class_="form-control") }}
         </div>
     </div>
@@ -47,7 +70,7 @@
     <!-- PROFESSION -->
     <div class="form-group">
         {{ form.profession.label(class_="control-label col-xs-4") }}
-        <div class="col-xs-5">
+        <div class="col-xs-5" id="profession">
             {{ form.profession(class_="form-control") }}
         </div>
     </div>
@@ -55,7 +78,7 @@
     <!-- MINIMUM SALARY -->
     <div class="form-group">
         {{ form.minimum_salary.label(class_="control-label col-xs-4") }}
-        <div class="col-xs-5">
+        <div class="col-xs-5" id="minimum_salary">
             {{ form.minimum_salary(class_="form-control") }}
         </div>
     </div>
@@ -63,7 +86,7 @@
     <!-- MAXIMUM SALARY -->
     <div class="form-group">
         {{ form.maximum_salary.label(class_="control-label col-xs-4") }}
-        <div class="col-xs-5">
+        <div class="col-xs-5" id="maximum_salary">
             {{ form.maximum_salary(class_="form-control") }}
         </div>
     </div>
@@ -77,6 +100,25 @@
 
 <div class="search-result">
     <table class="search-result-table">
+        <table class="table table-hover" style="width:800px">  
+        <thead>
+        <tr>
+            <th></th>
+            <th>First Name</th>
+            <th>Last Name</th> 
+            <th>Gender</th>
+            <th>Birth Date</th>
+            <th>City</th>
+            <th>Industry</th>
+            <th>Profession</th>
+            <th>Minimum Salary Requirement</th>
+            <th>Highest Level Of Education</th>
+        </tr>
+        </thead>
+        <tbody id="table_rows">
+    
+        </tbody>
+</table>
     </table>
 </div>
 
