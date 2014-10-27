@@ -31,7 +31,7 @@
 </div>
 <div class="person-table-list" style="padding:25px;">
 
-<table class="table" style="width:800px">  
+<table class="table table-hover" style="width:800px">  
 
 {% for result in results %}
 	{% if loop.index == 1 %}
@@ -51,7 +51,7 @@
 		</thead>
 		<tbody>
 	{% endif %}
-		<tr>
+		<tr onclick="window.document.location='/profile/{{ result['doc_id']}}';">
 			<td>
 				{{ loop.index }}
 			</td>

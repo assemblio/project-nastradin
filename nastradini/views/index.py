@@ -12,6 +12,7 @@ class Index(MethodView):
                 "$group":{
                 "_id":
                 {
+                    "doc_id":"$_id",
                     "city" : "$city",
                     "last_name": "$last_name",
                     "gender": "$gender",
@@ -26,6 +27,7 @@ class Index(MethodView):
             },
             {
                 "$project":{
+                    "doc_id":"$_id.doc_id",
                     "city" : "$_id.city",
                     "last_name": "$_id.last_name",
                     "gender": "$_id.gender",
@@ -45,5 +47,5 @@ class Index(MethodView):
             }
 
         ])
-        print results
+
         return render_template('index.html',results=results[u'result'])
