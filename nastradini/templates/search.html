@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script>
+    google.load("visualization", "1", {packages:["corechart"]});
 
     $(document).ready(function() {
         $(".search-button").click(function() {
@@ -14,6 +15,8 @@
         // TODO: Build search URL.
         // i.e. add the URL search parameters.
         // e.g. ?education=High School&industry=Construction
+
+
         highest_level_of_education = $( "#highest_level_of_education option:selected" ).text();
         industry = $( "#industry option:selected" ).text();
         profession = $( "#profession option:selected" ).text();
@@ -22,33 +25,54 @@
         url = "/json/search?education="+highest_level_of_education+"&industry="+industry+"&profession="+profession+"&minimum_salary="+minimum_salary+"&maximum_salary="+maximum_salary;
 
         $.get(url, function( results ) {
-            // Each row is a result item.
-            for (var index in results) {
-                    $("#table_rows").append("<tr class='person-row' data-resume-id=" + results[index]["_id"] + ">" +
-                        "<td></td>"+
-                        "<td>"+results[index]["first_name"]+"</td>"+
-                        "<td>"+results[index]["last_name"]+"</td>"+
-                        "<td>"+results[index]["gender"]+"</td>"+
-                        "<td>"+results[index]["birth_date"]+"</td>"+
-                        "<td>"+results[index]["city"]+"</td>"+
-                        "<td>"+results[index]["industry"]+"</td>"+
-                        "<td>"+results[index]["profession"]+"</td>"+
-                        "<td>"+results[index]["minimum_salary_requirement"]+"</td>"+
-                        "<td>"+results[index]["highest_level_of_education"]+"</td>"+
-                        "</tr>");
-            }
-
-            $(".person-row").click(function() {
-                var resumeId = $(this).attr('data-resume-id');
-                window.location.href = "/profile/" + resumeId
-            });
-
-            
+            build_pie_chart(results);
+            build_search_table(results);
             
         });  
-    }
-</script>
 
+    }
+    function build_search_table(result){
+        // Each row is a result item.
+        console.log("We are inside the search_table");
+        for (var index in result['table-key']) {
+                $("#table_rows").append("<tr class='person-row' data-resume-id=" + result['table-key'][index]["_id"] + ">" +
+                    "<td></td>"+
+                    "<td>"+result['table-key'][index]["first_name"]+"</td>"+
+                    "<td>"+result['table-key'][index]["last_name"]+"</td>"+
+                    "<td>"+result['table-key'][index]["gender"]+"</td>"+
+                    "<td>"+result['table-key'][index]["birth_date"]+"</td>"+
+                    "<td>"+result['table-key'][index]["city"]+"</td>"+
+                    "<td>"+result['table-key'][index]["industry"]+"</td>"+
+                    "<td>"+result['table-key'][index]["profession"]+"</td>"+
+                    "<td>"+result['table-key'][index]["minimum_salary_requirement"]+"</td>"+
+                    "<td>"+result['table-key'][index]["highest_level_of_education"]+"</td>"+
+                    "</tr>");
+        }
+
+        $(".person-row").click(function() {
+            var resumeId = $(this).attr('data-resume-id');
+            window.location.href = "/profile/" + resumeId
+        });
+    }
+
+    function build_pie_chart(result){
+ 
+        var data = google.visualization.arrayToDataTable([
+            ['Gender', 'Number'],
+            ['Male',     result['gender-distribution']['male']],
+            ['Female',   result['gender-distribution']['female']]
+        ]);
+
+        var options = {
+            title: 'Gender Distribution',
+            pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+        
+    }
+    </script>
 <form class="form-horizontal">
 
     <!-- HIGHEST LEVEL OF EDUCATION -->
@@ -97,7 +121,8 @@
     <button class="btn btn-primary search-button">Search</button>
 </div>
 <br>
-
+<div id="donutchart" style="width: 900px; height: 500px;">
+</div>
 <div class="search-result">
     <table class="search-result-table">
         <table class="table table-hover" style="width:800px">  

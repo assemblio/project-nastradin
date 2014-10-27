@@ -13,6 +13,7 @@ class SearchRequest(View):
         '''
         # TODO get URL search parameters
         # TODO build JSON query
+        result = {}
         if(len(request.args) > 0):
             education = request.args.get('education')
             industry = request.args.get('industry')
@@ -23,7 +24,6 @@ class SearchRequest(View):
         query = {}
         if education != "All":
             query["highest_level_of_education"] = education
-
 
         if industry != "All":
             query["industry"] = industry
@@ -36,8 +36,15 @@ class SearchRequest(View):
             query["salary_range.min"] = {"$gte": int(minimum_salary)}
 
         # Execute query
-        result = mongo.db.persons.find(query)
+        result['table-key'] = mongo.db.persons.find(query)
 
+        result['gender-distribution']={}
+        male = mongo.db.persons.find({"gender":"Male"}).count()
+        female = mongo.db.persons.find({"gender":"Female"}).count()
+        result['gender-distribution']['male'] = male
+        result['gender-distribution']['female'] = female
+
+        print result['gender-distribution']
         # Build response object.
         resp = Response(
             response=json_util.dumps(result), mimetype='application/json')
