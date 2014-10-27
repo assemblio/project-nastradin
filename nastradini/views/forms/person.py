@@ -2,6 +2,7 @@ from flask import render_template, redirect, url_for, request
 from flask.views import MethodView
 from nastradini import mongo, utils
 from personform import PersonForm
+from datetime import datetime
 
 
 class Person(MethodView):
