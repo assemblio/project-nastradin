@@ -16,7 +16,7 @@ class PersonForm(Form):
 
     first_name = TextField('First Name')
     last_name = TextField('Last Name')
-    birth_date = DateField('Birth Date')
+    birth_date = TextField('Birth Date')
     gender = RadioField('Gender', choices=[('Male', 'Male'), ('Female', 'Female')], default='Male')
     city = SelectField('City', choices=cities_tuple)
 
