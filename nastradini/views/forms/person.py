@@ -47,6 +47,18 @@ class Person(MethodView):
         city = person_json['city']
         person_json['coordinates'] = self.coordinates[city]
 
+        salary_range = person_json['minimum_salary_requirement']
+        if salary_range == '1000+':
+            person_json['salary_range'] = {
+                'min': 1000
+            }
+        else:
+            salary_range_array = salary_range.split('-')
+            person_json['salary_range'] = {
+                'min': int(salary_range_array[0]),
+                'max': int(salary_range_array[1])
+            }
+
         # Store the document.
         mongo.db.persons.update({'_id': doc_id}, person_json, True)
 
