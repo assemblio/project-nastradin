@@ -1,13 +1,61 @@
 from flask_wtf import Form
-from wtforms import TextField
+from wtforms import TextField, SelectField
 
 
 class SearchForm(Form):
 
-    highest_level_of_education = TextField('Highest Level of Education') #TODO: This needs to be select list: ["All", High School", "Undergraduate", "Graduate", "Doctoral"]
-    industry = TextField('Industry') #TODO: This needs to be select list: [All, Construction, Education, Government, Technology]
-    profession = TextField('Profession')  #TODO: This needs to be select list: [Electrician, Teacher, Project Manager, Software Engineer]
-    minimum_salary = TextField(
-        'Minimum Salary (Monthly)') #TODO: this is list: [200, 300, 400, 500, 600, 700, 800, 900]
-    maximum_salary = TextField(
-        'Maximum Salary (Monthly)') #TODO: this is list: [300, 400, 500, 600, 700, 800, 900, 1000+]
+    highest_level_of_education = SelectField(
+    	'Highest Level of Education',
+    	choices=[
+    	("All","All"),
+    	("High School","High School"),
+    	("Undergraduate","Undergraduate"),
+    	("Graduate","Graduate"),
+    	("Doctoral","Doctoral")
+    	]
+    	) 
+
+    industry = SelectField('Industry',
+        choices=[
+        ("All","All"),
+        ('Construction','Construction'),
+        ('Education','Education'),
+        ('Government','Government'),
+        ('Technology','Technology')
+        ]
+    )
+
+    profession = SelectField('Profession',
+        choices=[
+        ('Electrician','Electrician'),
+        ('Teacher','Teacher'),
+        ('Project Manager','Project Manager'),
+        ('Software Engineer','Software Engineer')
+        ]
+    )
+
+    minimum_salary = SelectField('Minimum Salary (Monthly)',
+        choices=[
+        ('200','200'),
+        ('300','300'),
+        ('400','400'),
+        ('500','500'),
+        ('600','600,'),
+        ('700','700'),
+        ('800','800'),
+        ('900','900')
+        ]
+    )
+
+    maximum_salary = SelectField('Maximum Salary (Monthly)',
+        choices=[
+        ('300','300'),
+        ('400','400'),
+        ('500','500'),
+        ('600','600,'),
+        ('700','700'),
+        ('800','800'),
+        ('900','900'),
+        ('1000+','1000+'),
+        ]
+    )
