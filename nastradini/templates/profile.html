@@ -1,18 +1,77 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<h1>Profile Page</h1>
-<table style="width:100%">
-
-{% for result in results %}
-	{% for key,value in result.iteritems() %}
-  <tr>
-  		{% if key != "_id" %}
-    		<th>{{key|title}}</th>
-    		<td>{{value}}</td>
-    	{% endif %}
-  </tr>
-    {% endfor %}
-{% endfor %}
+<table style="width:600px;">
+    <tr>
+        <td>
+            <img src="{{ url_for('static', filename='img/blank-profile-%s.jpg' % person.gender|lower) }}" />
+        </td>
+        <td style="width:100%; vertical-align: top;">
+            <div align="left" style="padding-left:20px; padding-top: 20px;">
+                <table>
+                    <tr>
+                        <td colspan="2" style="font-size:30px;">
+                            <strong>{{ person.first_name }} {{ person.last_name }}</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="font-size:20px;">
+                            {{ person.profession }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="color:#666;">
+                            {{ person.city }} | {{ person.industry }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" >
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="color:#999;">
+                            Education
+                        </td>
+                        <td>
+                            {{ person.highest_level_of_education }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="color:#999;">
+                            Salary Range
+                        </td>
+                        <td>
+                            {{ person.minimum_salary_requirement }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
 </table>
+
+<table style="width:600px;">
+    <tr>
+        <td style="padding-top:20px;">
+            SUMMARY  
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ person.summary }}
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-top:20px;">
+            SKILLS  
+        </td>
+    </tr>
+    <tr>
+        <td>
+            {{ person.skills }}
+        </td>
+    </tr>
+</table>
+
 {% endblock %}

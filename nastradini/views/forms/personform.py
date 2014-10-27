@@ -47,6 +47,7 @@ class PersonForm(Form):
         ]
     )
 
+    summary = TextAreaField('Summary')
     skills = TextAreaField('Skills (Comma Separated)')
 
 
