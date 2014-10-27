@@ -7,6 +7,7 @@
 
     $(document).ready(function() {
         $(".search-button").click(function() {
+            
             search();
         });
     });
@@ -25,8 +26,10 @@
         url = "/json/search?education="+highest_level_of_education+"&industry="+industry+"&profession="+profession+"&minimum_salary="+minimum_salary+"&maximum_salary="+maximum_salary;
 
         $.get(url, function( results ) {
-            build_search_table(results);
-            build_donut_chart(results);
+
+            buildSearchTable(results);
+
+            buildGenderDistributionChart(results);
 
             salaryRanges = results['salary']['result'];
             buildSalaryRangePieChart(salaryRanges);
@@ -35,9 +38,11 @@
         });  
 
     }
-    function build_search_table(result){
-        // Each row is a result item.
-        console.log(result['table-key']);
+    function buildSearchTable(result){
+        // First remove the results before showing the new results table
+        $("#search-results-table td").remove();
+
+        // Populate the table 
         for (var index in result['table-key']) {
                 $("#table_rows").append("<tr class='person-row' data-resume-id=" + result['table-key'][index]["_id"] + ">" +
                     "<td></td>"+
@@ -53,13 +58,14 @@
                     "</tr>");
         }
 
+        // Add the link to the row which takes you to the profile page
         $(".person-row").click(function() {
             var resumeId = $(this).attr('data-resume-id');
             window.location.href = "/profile/" + resumeId
         });
     }
 
-    function build_donut_chart(result){
+    function buildGenderDistributionChart(result){
  
         var data = google.visualization.arrayToDataTable([
             ['Gender', 'Number'],
@@ -72,12 +78,12 @@
             pieHole: 0.4,
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        var chart = new google.visualization.PieChart(document.getElementById('gender-distribution-chart'));
         chart.draw(data, options);
     }
 
     function buildSalaryRangePieChart(salaryRanges){
- 
+
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Salary');
         data.addColumn('number', 'Number');
@@ -96,7 +102,7 @@
             pieHole: 0.4,
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        var chart = new google.visualization.PieChart(document.getElementById('salary-distribution-chart'));
         chart.draw(data, options);
 
     }
@@ -153,25 +159,27 @@
     <button class="btn btn-primary search-button">Search</button>
 </div>
 <br>
+
+
 <table>
-<tr>
-<td>
-
-<div id="donutchart" style="width: 600px; height: 450px;">
-    </div>
-
-</td>
-<td>
-    <div id="piechart" style="width: 600px; height: 450px;">
-    </div>
-</td>
-</tr>
+    <tr>
+        <td>
+        <!-- THE DIV TO SHOW THE GENDER DISTRIBUTION CHART -->
+            <div id="gender-distribution-chart" style="width: 600px; height: 450px;">
+            </div>
+        </td>
+        <td>
+        <!-- THE DIV TO SHOW THE SALARY REQUIREMENTS DISTRIBUTION CHART -->
+            <div id="salary-distribution-chart" style="width: 600px; height: 450px;">
+            </div>
+        </td>
+    </tr>
 </table>
 
 
 <div class="search-result">
-    <table class="search-result-table">
-        <table class="table table-hover" style="width:800px">  
+
+<table id ="search-results-table" class="table table-hover" style="width:800px">  
         <thead>
         <tr>
             <th></th>
@@ -187,10 +195,10 @@
         </tr>
         </thead>
         <tbody id="table_rows">
-    
+        <!-- THE ROW TABLES ARE ADDED WITH JQUERY EVERY TIME THE SEARCH CRITERIA HAS RESULTS -->
         </tbody>
 </table>
-    </table>
+
 </div>
 
 {% endblock %}

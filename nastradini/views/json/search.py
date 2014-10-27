@@ -23,13 +23,13 @@ class SearchRequest(View):
 
         query = {}
         if education != "All":
-            query["highest_level_of_education"] = education
+            query["highest_level_of_education"] = str(education)
 
         if industry != "All":
-            query["industry"] = industry
+            query["industry"] = str(industry)
 
         if profession:
-            query["profession"] = profession
+            query["profession"] = str(profession)
 
         if minimum_salary and maximum_salary:
             query["salary_range.max"] = {"$lte": int(maximum_salary)}
@@ -40,18 +40,29 @@ class SearchRequest(View):
 
         result['gender-distribution'] = {}
 
-        male_query = query
-        male_query['gender'] = "Male"
-        male = mongo.db.persons.find(male_query).count()
+        # Get the gender count from the Database
+        gender = mongo.db.persons.aggregate([
+            {
+                "$match": query,
+            },
+            {
+                "$group": {
+                    "_id": "$gender",
+                    "count": {
+                        "$sum": 1
+                    }
+                }
+            }
+        ])
 
-        female_query = query
-        female_query['gender'] = "Female"
-        female = mongo.db.persons.find(female_query).count()
+        female = gender['result'][0]['count']
+        male = gender['result'][1]['count']
 
         result['gender-distribution']['male'] = male
         result['gender-distribution']['female'] = female
 
         result['salary'] = {}
+
         salary = mongo.db.persons.aggregate([
             {
                 "$match": query
