@@ -98,6 +98,7 @@ def configure_logging(app):
 from views.index import Index
 from views.forms.person import Person
 from views.forms.search import Search
+from views.json.search import SearchRequest
 
 
 def register_url_rules(app):
@@ -114,3 +115,6 @@ def register_url_rules(app):
 
     # Search form.
     app.add_url_rule('/search', view_func=Search.as_view('search'))
+
+    # Search request
+    app.add_url_rule('/json/search', view_func=SearchRequest.as_view('search_request'))

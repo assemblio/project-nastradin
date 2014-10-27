@@ -4,6 +4,26 @@
 
 <script>
 
+    $(document).ready(function() {
+        $(".search-button").click(function() {
+            search();
+        });
+    });
+
+    function search(){
+        // TODO: Build search URL.
+        // i.e. add the URL search parameters. Remember to use slugs!!
+        // e.g. ?education=high-school&industry=construction
+        url = "/json/search"
+
+        $.get(url, function( results ) {
+            // TODO: Create result rows for HTML table.
+            // Each row is a result item.
+
+            // TODO: Don't forget to remove this console.log once you are done.
+            console.log(results);
+        });  
+    }
 </script>
 
 <form class="form-horizontal">
@@ -47,13 +67,17 @@
             {{ form.maximum_salary(class_="form-control") }}
         </div>
     </div>
-
-    <br>
-    <div align="center">
-        <button class="btn btn-primary">Search</button>
-    </div>
-    <br>
-
 </form>
+
+<br>
+<div align="center">
+    <button class="btn btn-primary search-button">Search</button>
+</div>
+<br>
+
+<div class="search-result">
+    <table class="search-result-table">
+    </table>
+</div>
 
 {% endblock %}

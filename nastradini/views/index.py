@@ -7,6 +7,43 @@ class Index(MethodView):
 
     def get(self):
         # Render the templates.
-        results = mongo.db.persons.find({})
+        results = mongo.db.persons.aggregate([
+            {
+                "$group":{
+                "_id":
+                {
+                    "city" : "$city",
+                    "last_name": "$last_name",
+                    "gender": "$gender",
+                    "industry": "$industry",
+                    "profession": "$profession",
+                    "first_name": "$first_name",
+                    "minimum_salary_requirement": "$minimum_salary_requirement",
+                    "birth_date": "$birth_date",
+                    "highest_level_of_education": "$highest_level_of_education"
+                }
+                }
+            },
+            {
+                "$project":{
+                    "city" : "$_id.city",
+                    "last_name": "$_id.last_name",
+                    "gender": "$_id.gender",
+                    "industry": "$_id.industry",
+                    "profession": "$_id.profession",
+                    "first_name": "$_id.first_name",
+                    "minimum_salary_requirement": "$_id.minimum_salary_requirement",
+                    "birth_date": "$_id.birth_date",
+                    "highest_level_of_education": "$_id.highest_level_of_education"
+                    }
+            },
+            {
+                "$sort":{
+                    "last_name":1,
+                    "first_name":1
+                }
+            }
 
-        return render_template('index.html',results=results)
+        ])
+        print results
+        return render_template('index.html',results=results[u'result'])
