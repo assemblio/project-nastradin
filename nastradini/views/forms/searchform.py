@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import TextField, SelectField
+from wtforms import SelectField
 
 
 class SearchForm(Form):
@@ -40,7 +40,7 @@ class SearchForm(Form):
         ('300','300'),
         ('400','400'),
         ('500','500'),
-        ('600','600,'),
+        ('600','600'),
         ('700','700'),
         ('800','800'),
         ('900','900')
@@ -52,7 +52,7 @@ class SearchForm(Form):
         ('300','300'),
         ('400','400'),
         ('500','500'),
-        ('600','600,'),
+        ('600','600'),
         ('700','700'),
         ('800','800'),
         ('900','900'),
