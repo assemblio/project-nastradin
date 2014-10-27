@@ -17,7 +17,7 @@ class PersonForm(Form):
     first_name = TextField('First Name')
     last_name = TextField('Last Name')
     birth_date = DateField('Birth Date')
-    gender = RadioField('Gender', choices=[('Male', 'Male'), ('Female', 'Female')], default='Mashkull')
+    gender = RadioField('Gender', choices=[('Male', 'Male'), ('Female', 'Female')], default='Male')
     city = SelectField('City', choices=cities_tuple)
 
     highest_level_of_education = SelectField('Highest Level of Education',
