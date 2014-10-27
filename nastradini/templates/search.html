@@ -27,7 +27,9 @@
         $.get(url, function( results ) {
             build_search_table(results);
             build_donut_chart(results);
-            build_pie_chart(results);
+
+            salaryRanges = results['salary']['result'];
+            buildSalaryRangePieChart(salaryRanges);
             
             
         });  
@@ -35,7 +37,7 @@
     }
     function build_search_table(result){
         // Each row is a result item.
-        console.log("We are inside the search_table");
+        console.log(result['table-key']);
         for (var index in result['table-key']) {
                 $("#table_rows").append("<tr class='person-row' data-resume-id=" + result['table-key'][index]["_id"] + ">" +
                     "<td></td>"+
@@ -72,19 +74,22 @@
 
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
         chart.draw(data, options);
-        console.log(result['salary'])
     }
 
-    function build_pie_chart(result){
+    function buildSalaryRangePieChart(salaryRanges){
  
-        var data = google.visualization.arrayToDataTable([
-            ['Gender', 'Number'],
-            [result['salary']['result'][0]['_id']['salary'],  result['salary']['result'][0]['count']],
-            [result['salary']['result'][1]['_id']['salary'],  result['salary']['result'][1]['count']],
-            [result['salary']['result'][2]['_id']['salary'],  result['salary']['result'][2]['count']],
-            [result['salary']['result'][3]['_id']['salary'],  result['salary']['result'][3]['count']],
-            [result['salary']['result'][4]['_id']['salary'],  result['salary']['result'][4]['count']]
-        ]);
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Salary');
+        data.addColumn('number', 'Number');
+
+        for(key in salaryRanges){
+            salaryRangeObj = salaryRanges[key];
+            range = salaryRangeObj['_id']['salary'];
+            count = salaryRangeObj['count'];
+
+            row = [range, count];
+            data.addRow(row);
+        }
 
         var options = {
             title: 'Gender Distribution',
@@ -93,7 +98,7 @@
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(data, options);
-        
+
     }
     function populate_pie_chart(result){
          
@@ -152,7 +157,7 @@
 <tr>
 <td>
 
-    <div id="donutchart" style="width: 600px; height: 450px;">
+<div id="donutchart" style="width: 600px; height: 450px;">
     </div>
 
 </td>

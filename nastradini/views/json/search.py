@@ -38,16 +38,24 @@ class SearchRequest(View):
         # Execute query
         result['table-key'] = mongo.db.persons.find(query)
 
-        result['gender-distribution']={}
-        male = mongo.db.persons.find({"gender":"Male"}).count()
-        female = mongo.db.persons.find({"gender":"Female"}).count()
+        result['gender-distribution'] = {}
+
+        male_query = query
+        male_query['gender'] = "Male"
+        male = mongo.db.persons.find(male_query).count()
+
+        female_query = query
+        female_query['gender'] = "Female"
+        female = mongo.db.persons.find(female_query).count()
+
         result['gender-distribution']['male'] = male
         result['gender-distribution']['female'] = female
 
         result['salary'] = {}
-        string = minimum_salary + "-" +maximum_salary
-        print string
         salary = mongo.db.persons.aggregate([
+            {
+                "$match": query
+            },
             {
                 "$group": {
                     "_id": {
