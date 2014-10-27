@@ -11,6 +11,14 @@
             todayHighlight: true,
             format: 'dd/mm/yyyy',
         });
+        $(".gender" ).children().each(function() {
+
+            var attr = $(this).children().first().attr('checked');
+
+            if (typeof attr !== typeof undefined && attr !== false) {
+                $(this).addClass("active");
+            }
+        });
     });
 </script>
 
@@ -41,10 +49,9 @@
     </div>
 
     <!-- GENDER -->
-    <!-- TODO: ADD GENDER RADIO BUTTONS -->
     <div class="form-group">
     {{ form.gender.label(class_="control-label col-xs-4") }}
-    <div class="btn-group col-xs-2 gjinia" data-toggle="buttons">
+    <div class="btn-group col-xs-2 gender" data-toggle="buttons">
         {% for subfield in form.gender %}
             <div class="btn btn-default">
                 {{ subfield }}
