@@ -22,7 +22,7 @@ class SearchForm(Form):
             ('Construction', 'Construction'),
             ('Education', 'Education'),
             ('Government', 'Government'),
-            ('Technology', 'Information Technology')
+            ('ICT', 'ICT')
         ]
     )
 
@@ -31,8 +31,8 @@ class SearchForm(Form):
         choices=[
             ('Electrician', 'Electrician'),
             ('Teacher', 'Teacher'),
-            ('Project Manager', 'Project Manager'),
-            ('Software Engineer', 'Software Engineer')
+            ('Manager', 'Manager'),
+            ('Engineer', 'Engineer')
         ]
     )
 

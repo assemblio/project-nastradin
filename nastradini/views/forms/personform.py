@@ -34,7 +34,7 @@ class PersonForm(Form):
         ('Construction','Construction'),
         ('Education','Education'),
         ('Government','Government'),
-        ('Information Technology','Information Technology')
+        ('ICT','ICT')
         ]
     )
 
@@ -42,8 +42,8 @@ class PersonForm(Form):
         choices=[
         ('Electrician','Electrician'),
         ('Teacher','Teacher'),
-        ('Project Manager','Project Manager'),
-        ('Software Engineer','Software Engineer')
+        ('Manager','Manager'),
+        ('Engineer','Engineer')
         ]
     )
 

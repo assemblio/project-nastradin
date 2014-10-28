@@ -1,4 +1,5 @@
 import os
+from flask import current_app
 from flask.views import View
 from nastradini import mongo
 from nastradini import utils
@@ -28,7 +29,7 @@ class Resume(View):
 
         tex_template_filename = ""
         tex_filename = ""
-        pdf_filename = ""
+        pdf_url = ""
         output_dir = "%s/static/resumes" % app_dir
 
         time_str = str(time.time()).replace('.','')
@@ -36,11 +37,11 @@ class Resume(View):
         if template_id == 1:
             tex_template_filename = "%s/static/resumes/templates/modern-cv/cv_7.tex.template" % app_dir
             tex_filename = "%s/static/resumes/templates/modern-cv/%s-%s-%s-%s.tex" % (app_dir, token_value_pairs["TOKEN-FIRST-NAME"], token_value_pairs["TOKEN-LAST-NAME"], resume_id, time_str)
-            pdf_filename = "/static/resumes/%s-%s-%s-%s.pdf" % (token_value_pairs["TOKEN-FIRST-NAME"], token_value_pairs["TOKEN-LAST-NAME"], resume_id, time_str)
+            pdf_url = "%s/static/resumes/%s-%s-%s-%s.pdf" % (current_app.config['BASE_PATH'], token_value_pairs["TOKEN-FIRST-NAME"], token_value_pairs["TOKEN-LAST-NAME"], resume_id, time_str)
         else:
             tex_template_filename = "%s/static/resumes/templates/stylish-cv/cv_6.tex.template" % app_dir
             tex_filename = "%s/static/resumes/templates/stylish-cv/%s-%s-%s-%s.tex" % (app_dir, token_value_pairs["TOKEN-FIRST-NAME"], token_value_pairs["TOKEN-LAST-NAME"], resume_id, time_str)
-            pdf_filename = "/static/resumes/%s-%s-%s-%s.pdf" % (token_value_pairs["TOKEN-FIRST-NAME"], token_value_pairs["TOKEN-LAST-NAME"], resume_id, time_str)
+            pdf_url = "%s/static/resumes/%s-%s-%s-%s.pdf" % (current_app.config['BASE_PATH'], token_value_pairs["TOKEN-FIRST-NAME"], token_value_pairs["TOKEN-LAST-NAME"], resume_id, time_str)
 
         print tex_template_filename
 
@@ -58,4 +59,4 @@ class Resume(View):
         arg_output_dir = "-output-directory=" + output_dir
         call(["xelatex", "-interaction=batchmode", arg_output_dir, tex_filename])
 
-        return pdf_filename
+        return pdf_url
