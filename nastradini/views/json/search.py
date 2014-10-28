@@ -56,12 +56,8 @@ class SearchRequest(View):
         ])
 
         if gender['result']:
-            if len(gender['result']) == 1:
-                female = gender['result'][0]['count']
-                result['gender-distribution']['male'] = female
-            if len(gender['result']) == 2:
-                male = gender['result'][1]['count']
-                result['gender-distribution']['female'] = male
+            for gender in gender['result']:
+                result['gender-distribution'][gender['_id'].lower()] = gender['count']
 
         result['salary'] = {}
 
