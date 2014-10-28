@@ -55,12 +55,14 @@ class SearchRequest(View):
             }
         ])
 
-        if gender['result'][0]['count']:
-            female = gender['result'][0]['count']
-            result['gender-distribution']['male'] = female
-        if gender['result'][1]['count']:
-            male = gender['result'][1]['count']
-            result['gender-distribution']['female'] = male
+        if gender['result']:
+            if gender['result'][0]:
+                female = gender['result'][0]['count']
+                result['gender-distribution']['male'] = female
+        if gender['result']:
+            if gender['result'][1]:
+                male = gender['result'][1]['count']
+                result['gender-distribution']['female'] = male
 
         result['salary'] = {}
 

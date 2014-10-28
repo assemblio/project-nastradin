@@ -1,6 +1,23 @@
 {% extends "layout.html" %}
 
 {% block body %}
+
+<script>
+    $(document).ready(function(){
+        $(".generate-resume-link").click(function(){
+            var url = '/resume/{{ person._id }}/' + $(this).attr('data-template-id')
+            $.get( url, function(pdfUrl) {
+                var iframe = $('<iframe width="800" height="950">');
+                iframe.attr('src', pdfUrl);
+
+
+                $('.resume-pdf').html('');
+                $('.resume-pdf').append(iframe);
+            });
+        });
+    });
+</script>
+
 <table style="width:600px;">
     <tr>
         <td>
@@ -55,10 +72,8 @@
 
                             <font style="color:#999;"> Generate Resume</font><br>
                             <div style="padding-left:20px;">
-                                <a href='#'>Template A</a><br>
-                                <a href='#'>Template B</a><br>
-                                <a href='#'>Template C</a><br>
-                                <a href='#'>Template D</a><br>
+                                <a class="generate-resume-link" data-template-id="1" href='#'>Template A</a><br>
+                                <a class="generate-resume-link" data-template-id="2" href='#'>Template B</a><br>
                             </div>
                         </td>
                     </tr>
@@ -68,27 +83,9 @@
     </tr>
 </table>
 
-<table style="width:600px;">
-    <tr>
-        <td style="padding-top:20px;">
-            SUMMARY  
-        </td>
-    </tr>
-    <tr>
-        <td>
-            {{ person.summary }}
-        </td>
-    </tr>
-    <tr>
-        <td style="padding-top:20px;">
-            SKILLS  
-        </td>
-    </tr>
-    <tr>
-        <td>
-            {{ person.skills }}
-        </td>
-    </tr>
-</table>
+<br><br><br>
+
+<div class="resume-pdf">
+</div>
 
 {% endblock %}

@@ -13,3 +13,5 @@ class Utils(object):
         '''
         doc_id = str(ObjectId())
         return doc_id
+
+

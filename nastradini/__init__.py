@@ -97,6 +97,7 @@ def configure_logging(app):
 # Import forms
 from views.index import Index
 from views.profile import Profile
+from views.resume import Resume
 from views.forms.person import Person
 from views.forms.search import Search
 from views.json.search import SearchRequest
@@ -108,11 +109,14 @@ def register_url_rules(app):
     :param app: The Flask application instance.
     '''
 
-    # Index page form.
+    # Index page.
     app.add_url_rule('/', view_func=Index.as_view('index'))
 
-    # Index page form.
+    # Profile page.
     app.add_url_rule('/profile/<string:id>', view_func=Profile.as_view('profile'))
+
+    # Generate Resume.
+    app.add_url_rule('/resume/<string:resume_id>/<int:template_id>', view_func=Resume.as_view('resume'))
 
     # Registration form.
     app.add_url_rule('/person', view_func=Person.as_view('person'))

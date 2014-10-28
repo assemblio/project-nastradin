@@ -31,7 +31,7 @@
 \usepackage{fontspec} % Allows font customization
 
 \defaultfontfeatures{Mapping=tex-text}
-\setmainfont{Adobe Garamond Pro} % Main document font
+% \setmainfont{Adobe Garamond Pro} % Main document font
 
 \titleformat{\section}{\large\scshape\raggedright}{}{0em}{}[\titlerule] % Section formatting
 
@@ -43,7 +43,7 @@
 \newcommand{\gray}{\rowcolor[gray]{.90}} % Custom highlighting for the work experience and education sections
 
 %----------------------------------------------------------------------------------------
-% ÊFOOTER SECTION
+%	FOOTER SECTION
 %----------------------------------------------------------------------------------------
 
 \renewcommand{\headfont}{\normalfont\rmfamily\scshape} % Font settings for footer
@@ -51,8 +51,8 @@
 \cofoot{
 \addfontfeature{LetterSpace=20.0}\fontsize{12.5}{17}\selectfont % Letter spacing and font size
 
-123 Broadway {\large\textperiodcentered} City {\large\textperiodcentered} Country 12345\\ % Your mailing address
-{\Large\Letter} john@smith.com \ {\Large\Telefon} (000) 111-1111 % Your email address and phone number
+TOKEN-CITY\\ % Your mailing address
+{\Large\Letter} TOKEN-FIRST-NAME@mail.com \ {\Large\Telefon} (000) 111-1111 % Your email address and phone number
 }
 
 %----------------------------------------------------------------------------------------
@@ -62,20 +62,22 @@
 \begin{center} % Center everything in the document
 
 %----------------------------------------------------------------------------------------
-% ÊHEADER SECTION
+% 	HEADER SECTION
 %----------------------------------------------------------------------------------------
 
-{\addfontfeature{LetterSpace=20.0}\fontsize{36}{36}\selectfont\scshape John Smith} % Your name at the top
+{\addfontfeature{LetterSpace=20.0}\fontsize{36}{36}\selectfont\scshape TOKEN-FIRST-NAME TOKEN-LAST-NAME} % Your name at the top
 
-\vspace{1.5cm} % Extra whitespace after the large name at the top
+\vspace{0.5cm} % Extra whitespace after the large name at the top
+\gray TOKEN-PROFESSION
+\vspace{1cm} % Extra whitespace after the large name at the top
 
 %----------------------------------------------------------------------------------------
 %	OBJECTIVE
 %----------------------------------------------------------------------------------------
 
-\section{Objective}
+\section{Summary}
 
-A position in the field of computers with special interests in business applications \\ programming, information processing, and management systems.
+TOKEN-SUMMARY
 
 %----------------------------------------------------------------------------------------
 %	WORK EXPERIENCE
@@ -85,19 +87,9 @@ A position in the field of computers with special interests in business applicat
 
 \begin{tabularx}{0.97\linewidth}{>{\raggedleft\scshape}p{2cm}X}
 \gray Period & \textbf{March 2012 --- Present}\\
-\gray Employer & \textbf{Layer BV} \hfill Amsterdam, The Netherlands\\
-\gray Job Title & \textbf{J2EE Analyst programmer}\\
-\gray Languages & \textbf{J2EE}\\
-Ê Ê Ê Ê& Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et auctor neque. Nullam ultricies sem sit amet magna tristique imperdiet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus eget mollis nunc.
-\end{tabularx}
-
-\vspace{12pt}
-
-\begin{tabularx}{0.97\linewidth}{>{\raggedleft\scshape}p{2cm}X}
-\gray Period & \textbf{March 2009 --- August 2010 (Part Time)}\\
-\gray Employer & \textbf{Buy More} \hfill New York, USA\\
-\gray Job Title & \textbf{Supermarket Clerk}\\
-Ê Ê Ê Ê& Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et auctor neque. Nullam ultricies sem sit amet magna tristique imperdiet.
+\gray Employer & \textbf{Lehman Brothers} \hfill Los Angeles\\
+\gray Job Title & \textbf{Analyst}\\
+& Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et auctor neque. Nullam ultricies sem sit amet magna tristique imperdiet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus eget mollis nunc.
 \end{tabularx}
 
 %----------------------------------------------------------------------------------------
@@ -107,20 +99,18 @@ A position in the field of computers with special interests in business applicat
 \section{Education}
 
 \begin{tabularx}{0.97\linewidth}{>{\raggedleft\scshape}p{2cm}X}
-\gray Period & \textbf{January 2011 --- February 2012}\\
-\gray Degree & \textbf{Master of Science in Computer Science}\\
-\gray Rank & \textbf{First Class Honours}\\
-\gray University & \textbf{The University of California} \hfill Los Angeles, USA\\
+\gray Period & \textbf{2011 --- 2012}\\
+\gray Degree & \textbf{Masters of Commerce}\\
+\gray University & \textbf{The University of California} \hfill Berkley\\
 %& Extra information about degree
 \end{tabularx}
 
 \vspace{12pt}
 
 \begin{tabularx}{0.97\linewidth}{>{\raggedleft\scshape}p{2cm}X}
-\gray Period & \textbf{August 2008 --- September 2010}\\
-\gray Degree & \textbf{Bachelor of Science in Computer Science}\\
-\gray Rank & \textbf{With Distinction}\\
-\gray University & \textbf{New York University} \hfill New York, USA\\
+\gray Period & \textbf{2007 --- 2010}\\
+\gray Degree & \textbf{Bachelor of Business Studies}\\
+\gray University & \textbf{NThe University of California} \hfill Berkley\\
 %& Extra information about degree
 \end{tabularx}
 
@@ -130,12 +120,8 @@ A position in the field of computers with special interests in business applicat
 
 \section{Skills}
 
-\begin{tabular}{ @{} >{\bfseries}l @{\hspace{6ex}} l }
-Computer Languages & Prolog, Haskell, AWK, Erlang, Scheme, ML \\
-Protocols \& APIs & XML, JSON, SOAP, REST \\
-Databases & MySQL, PostgreSQL, Microsoft SQL \\
-Tools & SVN, Vim, Emacs
-\end{tabular}
+TOKEN-SKILLS
+
 
 %----------------------------------------------------------------------------------------
 
