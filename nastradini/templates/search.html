@@ -22,7 +22,7 @@
         profession = $( "#profession option:selected" ).text();
         minimum_salary = $( "#minimum_salary option:selected" ).text();
         maximum_salary = $( "#maximum_salary option:selected" ).text();
-        url = "/json/search?education="+highest_level_of_education+"&industry="+industry+"&profession="+profession+"&minimum_salary="+minimum_salary+"&maximum_salary="+maximum_salary;
+        url = "{{ config.BASE_PATH }}/json/search?education="+highest_level_of_education+"&industry="+industry+"&profession="+profession+"&minimum_salary="+minimum_salary+"&maximum_salary="+maximum_salary;
 
         $.get(url, function( results ) {
 

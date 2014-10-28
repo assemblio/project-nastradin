@@ -16,8 +16,12 @@
 		<nav class="navbar navbar-default" role="navigation">
 			<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<a class="navbar-brand" href="/">Human Capital Tracker</a>
+				<div class="navbar-header">		
+					{% if config.BASE_PATH == '' %}
+                        <a class="navbar-brand" href="/">Human Capital Tracker</a>
+                    {% else %}
+                    	<a class="navbar-brand" href="{{ config.BASE_PATH }}">Human Capital Tracker</a>
+                    {% endif %}
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<div class="navbar-form navbar-right">

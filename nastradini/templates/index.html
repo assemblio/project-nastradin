@@ -51,7 +51,7 @@
 		</thead>
 		<tbody>
 	{% endif %}
-		<tr onclick="window.document.location='/profile/{{ result['doc_id']}}';">
+		<tr onclick="window.document.location='{{ config.BASE_PATH }}/profile/{{ result['doc_id']}}';">
 			<td>
 				{{ loop.index }}
 			</td>

@@ -5,7 +5,7 @@
 <script>
     $(document).ready(function(){
         $(".generate-resume-link").click(function(){
-            var url = '/resume/{{ person._id }}/' + $(this).attr('data-template-id')
+            var url = '{{ config.BASE_PATH }}/resume/{{ person._id }}/' + $(this).attr('data-template-id')
             $.get( url, function(pdfUrl) {
                 var iframe = $('<iframe width="800" height="950">');
                 iframe.attr('src', pdfUrl);
