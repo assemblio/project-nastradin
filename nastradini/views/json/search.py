@@ -56,11 +56,10 @@ class SearchRequest(View):
         ])
 
         if gender['result']:
-            if gender['result'][0]:
+            if len(gender['result']) == 1:
                 female = gender['result'][0]['count']
                 result['gender-distribution']['male'] = female
-        if gender['result']:
-            if gender['result'][1]:
+            if len(gender['result']) == 2:
                 male = gender['result'][1]['count']
                 result['gender-distribution']['female'] = male
 

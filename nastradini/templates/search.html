@@ -7,7 +7,6 @@
 
     $(document).ready(function() {
         $(".search-button").click(function() {
-            
             search();
         });
     });
@@ -27,12 +26,17 @@
 
         $.get(url, function( results ) {
 
-            buildSearchTable(results);
+            var hasResults = buildSearchTable(results);
 
-            buildGenderDistributionChart(results);
+            if(hasResults == true){
+                buildGenderDistributionChart(results);
 
-            salaryRanges = results['salary']['result'];
-            buildSalaryRangePieChart(salaryRanges);
+                salaryRanges = results['salary']['result'];
+                buildSalaryRangePieChart(salaryRanges);
+            }else{
+                $('#gender-distribution-chart').html('');
+                $('#salary-distribution-chart').html('');
+            }
             
             
         });  
@@ -42,27 +46,36 @@
         // First remove the results before showing the new results table
         $("#search-results-table td").remove();
 
-        // Populate the table 
-        for (var index in result['table-key']) {
-                $("#table_rows").append("<tr class='person-row' data-resume-id=" + result['table-key'][index]["_id"] + ">" +
-                    "<td></td>"+
-                    "<td>"+result['table-key'][index]["first_name"]+"</td>"+
-                    "<td>"+result['table-key'][index]["last_name"]+"</td>"+
-                    "<td>"+result['table-key'][index]["gender"]+"</td>"+
-                    "<td>"+result['table-key'][index]["birth_date"]+"</td>"+
-                    "<td>"+result['table-key'][index]["city"]+"</td>"+
-                    "<td>"+result['table-key'][index]["industry"]+"</td>"+
-                    "<td>"+result['table-key'][index]["profession"]+"</td>"+
-                    "<td>"+result['table-key'][index]["minimum_salary_requirement"]+"</td>"+
-                    "<td>"+result['table-key'][index]["highest_level_of_education"]+"</td>"+
-                    "</tr>");
-        }
+        if(result['table-key'].length > 0){
+            $('.result-table-container').css('display', 'block');
 
-        // Add the link to the row which takes you to the profile page
-        $(".person-row").click(function() {
-            var resumeId = $(this).attr('data-resume-id');
-            window.location.href = "/profile/" + resumeId
-        });
+            // Populate the table 
+            for (var index in result['table-key']) {
+                    $("#table_rows").append("<tr class='person-row' data-resume-id=" + result['table-key'][index]["_id"] + ">" +
+                        "<td></td>"+
+                        "<td>"+result['table-key'][index]["first_name"]+"</td>"+
+                        "<td>"+result['table-key'][index]["last_name"]+"</td>"+
+                        "<td>"+result['table-key'][index]["gender"]+"</td>"+
+                        "<td>"+result['table-key'][index]["birth_date"]+"</td>"+
+                        "<td>"+result['table-key'][index]["city"]+"</td>"+
+                        "<td>"+result['table-key'][index]["industry"]+"</td>"+
+                        "<td>"+result['table-key'][index]["profession"]+"</td>"+
+                        "<td>"+result['table-key'][index]["minimum_salary_requirement"]+"</td>"+
+                        "<td>"+result['table-key'][index]["highest_level_of_education"]+"</td>"+
+                        "</tr>");
+            }
+
+            // Add the link to the row which takes you to the profile page
+            $(".person-row").click(function() {
+                var resumeId = $(this).attr('data-resume-id');
+                window.location.href = "/profile/" + resumeId
+            });
+
+            return true;
+        }else{
+            $('.result-table-container').css('display', 'none');
+            return false;
+        }
     }
 
     function buildGenderDistributionChart(result){
@@ -179,25 +192,27 @@
 
 <div class="search-result">
 
-<table id ="search-results-table" class="table table-hover" style="width:800px">  
-        <thead>
-        <tr>
-            <th></th>
-            <th>First Name</th>
-            <th>Last Name</th> 
-            <th>Gender</th>
-            <th>Birth Date</th>
-            <th>City</th>
-            <th>Industry</th>
-            <th>Profession</th>
-            <th>Minimum Salary Requirement</th>
-            <th>Highest Level Of Education</th>
-        </tr>
-        </thead>
-        <tbody id="table_rows">
-        <!-- THE ROW TABLES ARE ADDED WITH JQUERY EVERY TIME THE SEARCH CRITERIA HAS RESULTS -->
-        </tbody>
-</table>
+<div class="result-table-container" style="display:none;">
+    <table id ="search-results-table" class="table table-hover" style="width:800px">  
+            <thead>
+            <tr>
+                <th></th>
+                <th>First Name</th>
+                <th>Last Name</th> 
+                <th>Gender</th>
+                <th>Birth Date</th>
+                <th>City</th>
+                <th>Industry</th>
+                <th>Profession</th>
+                <th>Minimum Salary Requirement</th>
+                <th>Highest Level Of Education</th>
+            </tr>
+            </thead>
+            <tbody id="table_rows">
+            <!-- THE ROW TABLES ARE ADDED WITH JQUERY EVERY TIME THE SEARCH CRITERIA HAS RESULTS -->
+            </tbody>
+    </table>
+</div>
 
 </div>
 
