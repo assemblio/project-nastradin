@@ -6,7 +6,6 @@ from datetime import datetime
 
 
 class Person(MethodView):
-
     methods = ['GET', 'POST']
 
     coordinates = {

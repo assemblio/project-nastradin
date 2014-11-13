@@ -117,6 +117,37 @@
         </div>
     </div>
 
+
+
+    <br /> <br />
+    <label class="control-label col-xs-4"> EXPERIENCE </label><hr>
+
+       <!-- JOB TITLE -->
+    <div class="form-group">
+        {{ form.job_title.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.job_title(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- LOCATION -->
+    <div class="form-group">
+        {{ form.location.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.location(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="form-group">
+        {{ form.description.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.description(class_="form-control") }}
+        </div>
+    </div>
+
+
+
     <br>
     <div align="center">
         <button type="submit" class="btn btn-primary">Register</button>
