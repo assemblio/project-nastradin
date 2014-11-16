@@ -19,9 +19,95 @@
                 $(this).addClass("active");
             }
         });
+
+
     });
+
+
+
+
 </script>
 
+
+<script type="text/javascript">
+    function add_experience(){
+        addExperienceFields();
+        addNewExperience();
+      }
+
+    function addExperienceFields(){
+
+        // check if experienceIndexer variable was instantiated before, if not instantiate it
+        if (typeof experienceIndexer === 'undefined') {
+            experienceIndexer = 1;
+        }
+
+        // Every time this function runs, it appends HTML form-fields to the   #experience-container div
+        $("#experience-container").append('<hr><div class="form-group" id="job_title">\
+                                                    <label for="job_title_value">Job Title:</label>\
+                                                    <input type="text" name="job_title" id="job_title_value-'+experienceIndexer+'">\
+                                           </div>\
+                                           <div class="form-group" id="location">\
+                                           Location:<select id="location_value-'+experienceIndexer+'" class="form-control" data-style="btn-primary">\
+                                                          <option value="Prishtine">Prishtine</option>\
+                                                          <option value="Ferizaj">Ferizaj</option>\
+                                                          <option value="Gjilan">Gjilan</option>\
+                                                          <option value="Prizeren">Prizeren</option>\
+                                                     </select>\
+                                           </div>\
+                                           <div class="form-group" id="description">\
+                                                <label for="description-value-'+experienceIndexer+'">Description:</label>\
+                                                <input type="text" name="description" id="description-value-'+experienceIndexer+'">\
+                                           </div>');
+        // Increase the experienceIndexer so we can add different fields with different indexes
+
+        experienceIndexer= experienceIndexer + 1;
+    }
+
+
+    function addNewExperience(){
+        // This function gets the values of the fields with JQuery, and saves those values to a JSON and returns a JSON.
+
+        // Check if the indexer is not instantiated
+        if (typeof indexer === typeof undefined) {
+            indexer = 0;
+
+        }
+            // Create the JSON, where we are going to save the values each time this function is called and return them.
+            experienceJSON = {}
+
+            // Get the job title with JQuery
+            var jobTitle =  $('#experience-container').children('#job_title').children('#job_title_value-'+indexer).val();
+
+            // Get the job description with JQuery
+            var description = $('#experience-container').children('#description').children('#description-value-'+indexer).val();
+
+            // Get the work location with JQuery
+            var work_location = $('#experience-container').children('#location').children('#location_value-'+indexer).val();
+
+            // Build the experience JSON
+            experienceJSON['jobTitle'] = jobTitle;
+            experienceJSON['description'] = description;
+            experienceJSON['work_location'] = work_location;
+
+            // increase the indexer
+            indexer = indexer + 1;
+
+            // Check if experienceArray was instantiated, if not instantiate it
+            if( typeof experienceArray === typeof undefined){
+                experienceArray = [];
+            }
+
+            // populate the experience array with the JSON that was returned by addNewExperience() function.
+            experienceArray.push(experienceJSON);
+
+    }
+
+
+
+
+
+</script>
 <form action="{{ url_for('person') }}" method="post" class="form-horizontal">
 
     <!-- FIRST NAME -->
@@ -45,20 +131,20 @@
         {{ form.birth_date.label(class_="control-label col-xs-4") }}
         <div class="col-xs-5">
             {{ form.birth_date(class_="form-control date-picker") }}
-         </div>
+        </div>
     </div>
 
     <!-- GENDER -->
     <div class="form-group">
-    {{ form.gender.label(class_="control-label col-xs-4") }}
-    <div class="btn-group col-xs-2 gender" data-toggle="buttons">
-        {% for subfield in form.gender %}
+        {{ form.gender.label(class_="control-label col-xs-4") }}
+        <div class="btn-group col-xs-2 gender" data-toggle="buttons">
+            {% for subfield in form.gender %}
             <div class="btn btn-default">
                 {{ subfield }}
                 {{ subfield.label }}
             </div>
-        {% endfor %}
-        </div> 
+            {% endfor %}
+        </div>
     </div>
 
     <!-- CITY -->
@@ -118,37 +204,36 @@
     </div>
 
 
+    <br/> <br/>
+    <label class="control-label col-xs-4"> EXPERIENCE </label>
+    <hr>
 
-    <br /> <br />
-    <label class="control-label col-xs-4"> EXPERIENCE </label><hr>
 
-       <!-- JOB TITLE -->
-    <div class="form-group">
-        {{ form.job_title.label(class_="control-label col-xs-4") }}
-        <div class="col-xs-5">
-            {{ form.job_title(class_="form-control") }}
+    <div class="form-group" id="experience-container" style="width:300px;">
+        <div class="form-group" id="job_title">
+            <label class="col-xs-5" for="job_title_value-0">Job Title:</label>
+            <input type="text" name="job_title" id="job_title_value-0">
+        </div>
+
+        <div class="form-group" id="location">
+            Location:<select id="location_value-0" class="form-control col-xs-5" data-style="btn-primary">
+            <option value="Prishtine">Prishtine</option>
+            <option value="Ferizaj">Ferizaj</option>
+            <option value="Gjilan">Gjilan</option>
+            <option value="Prizeren">Prizeren</option>
+        </select>
+        </div>
+
+        <div class="form-group" id="description">
+            <label class="col-xs-5" for="description-value-0">Description:</label>
+            <input type="textarea" name="description" id="description-value-0">
         </div>
     </div>
-
-    <!-- LOCATION -->
-    <div class="form-group">
-        {{ form.location.label(class_="control-label col-xs-4") }}
-        <div class="col-xs-5">
-            {{ form.location(class_="form-control") }}
-        </div>
-    </div>
-
-    <!-- DESCRIPTION -->
-    <div class="form-group">
-        {{ form.description.label(class_="control-label col-xs-4") }}
-        <div class="col-xs-5">
-            {{ form.description(class_="form-control") }}
-        </div>
-    </div>
-
+    <button type='button' class="btn" onClick="javscript:add_experience()">Add Experience</button>
 
 
     <br>
+
     <div align="center">
         <button type="submit" class="btn btn-primary">Register</button>
     </div>

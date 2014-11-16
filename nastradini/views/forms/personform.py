@@ -1,6 +1,6 @@
 from flask_wtf import Form
-from wtforms import TextField, TextAreaField, RadioField, DateField, SelectField
-
+from wtforms import TextField, TextAreaField, RadioField, DateField, SelectField, HiddenField
+from wtforms_dynamic_fields import WTFormsDynamicFields
 
 class PersonForm(Form):
     cities_list = [
@@ -63,17 +63,10 @@ class PersonForm(Form):
                                              ]
     )
 
-    job_title = TextField('Job Title')
 
-    location = SelectField('Location',
-                           choices=[
-                               ('Prishtina', 'Prishtina'),
-                               ('Ferizaj', 'Ferizaj'),
-                               ('Gjakova', 'Gjakova'),
-                               ('Gjilan', 'Gjilan'),
-                               ('Prizren', 'Prizren')
-                           ]
-    )
+    job_title = HiddenField('Job Title')
 
-    description = TextField('Description')
+    location = HiddenField('Location')
+
+    description = HiddenField('Description')
 

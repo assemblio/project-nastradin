@@ -2,7 +2,6 @@ from flask import render_template, redirect, url_for, request
 from flask.views import MethodView
 from nastradini import mongo, utils
 from personform import PersonForm
-from datetime import datetime
 
 
 class Person(MethodView):
@@ -39,13 +38,16 @@ class Person(MethodView):
         # First, let's get the doc id.
         doc_id = utils.get_doc_id()
 
-        # Create patient info object.
+        # Create person info object.
         person_form = PersonForm(request.form)
         person_json = person_form.data
 
         # Set coordinates
         city = person_json['city']
         person_json['coordinates'] = self.coordinates[city]
+
+
+
 
         salary_range = person_json['minimum_salary_requirement']
         if salary_range == '1000+':
@@ -59,6 +61,7 @@ class Person(MethodView):
                 'max': int(salary_range_array[1])
             }
 
+        print person_json
         # Store the document.
         mongo.db.persons.update({'_id': doc_id}, person_json, True)
 
