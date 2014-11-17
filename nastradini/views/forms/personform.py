@@ -1,6 +1,5 @@
 from flask_wtf import Form
-from wtforms import TextField, TextAreaField, RadioField, DateField, SelectField, HiddenField
-from wtforms_dynamic_fields import WTFormsDynamicFields
+from wtforms import TextField, TextAreaField, RadioField, SelectField, HiddenField
 
 class PersonForm(Form):
     cities_list = [
