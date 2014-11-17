@@ -126,11 +126,11 @@ def register_url_rules(app):
     app.add_url_rule('/resume/<string:resume_id>/<int:template_id>', view_func=Resume.as_view('resume'))
 
     # Registration form.
-    app.add_url_rule('/student', view_func=Person.as_view('student'))
+    app.add_url_rule('/person', view_func=Person.as_view('person'))
 
     #######################################################################################
     # TODO: Student Registration form.
-    app.add_url_rule('/person', view_func=Person.as_view('person'))
+    app.add_url_rule('/student', view_func=Person.as_view('student'))
 
     # TODO: Analytics - professionals
     app.add_url_rule('/professional-analytics', view_func=Person.as_view('prof-analytics'))
