@@ -46,9 +46,6 @@ class Person(MethodView):
         city = person_json['city']
         person_json['coordinates'] = self.coordinates[city]
 
-
-
-
         salary_range = person_json['minimum_salary_requirement']
         if salary_range == '1000+':
             person_json['salary_range'] = {

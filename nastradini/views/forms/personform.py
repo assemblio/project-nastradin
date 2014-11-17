@@ -1,6 +1,7 @@
 from flask_wtf import Form
 from wtforms import TextField, TextAreaField, RadioField, SelectField, HiddenField
 
+
 class PersonForm(Form):
     cities_list = [
         'Prishtina', 'Ferizaj',
@@ -62,10 +63,5 @@ class PersonForm(Form):
                                              ]
     )
 
-
-    job_title = HiddenField('Job Title')
-
-    location = HiddenField('Location')
-
-    description = HiddenField('Description')
+    experiences = HiddenField('Job Title')
 

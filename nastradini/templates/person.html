@@ -2,15 +2,30 @@
 
 {% block body %}
 
-<script>
+<script type="text/javascript">
+
+    var experienceIndexer = 1;
+
+    // Create the JSON, where we are going to save the values each time this function is called and return them.
+    var experiencesJson = [];
+
+    // Before submitting the form add #experiences fields.
+    function submit_form(){
+        record_experience();
+        $("#experiences").val(JSON.stringify(experiencesJson));
+        $("#resume_form").submit();
+    }
+
     $(document).ready(function() {
+
         $('.btn').button();
 
         $('.date-picker').datepicker({
             autoclose: true,
             todayHighlight: true,
-            format: 'dd/mm/yyyy',
+            format: 'dd/mm/yyyy'
         });
+
         $(".gender" ).children().each(function() {
 
             var attr = $(this).children().first().attr('checked');
@@ -19,88 +34,55 @@
                 $(this).addClass("active");
             }
         });
-
-
     });
 
-
-
-
-</script>
-
-
-<script type="text/javascript">
-    var experienceIndexer = 1;
-
     function add_experience(){
-        addExperienceFields();
-        addNewExperience();
-      }
-
-    function addExperienceFields(){
 
         // Every time this function runs, it appends HTML form-fields to the   #experience-container div
-        $("#experience-container").append('<hr><div id="experience"><div class="form-group" id="job_title">\
-                                                        <label for="job_title_value">Job Title:</label>\
-                                                        <input type="text" name="job_title" id="job_title_value-'+experienceIndexer+'">\
-                                               </div>\
-                                               <div class="form-group" id="location">\
-                                               Location:<select id="location_value-'+experienceIndexer+'" class="form-control" data-style="btn-primary">\
+        $("#experience-container").append('<hr><div class="experience"><div class="form-group">\
+                                                     <label for="job_title_value-'+experienceIndexer+'">Job Title:</label>\
+                                                     <input class="form-control job_title" type="text" name="job_title" id="job_title_value-'+experienceIndexer+'">\
+                                                </div>\
+                                               <div class="form-group">\
+                                               Location:<select id="location_value-'+experienceIndexer+'" class="form-control location" data-style="btn-primary">\
                                                               <option value="Prishtine">Prishtine</option>\
                                                               <option value="Ferizaj">Ferizaj</option>\
                                                               <option value="Gjilan">Gjilan</option>\
                                                               <option value="Prizeren">Prizeren</option>\
                                                          </select>\
                                                </div>\
-                                               <div class="form-group" id="description">\
-                                                    <label for="description-value-'+experienceIndexer+'">Description:</label>\
-                                                    <input type="text" name="description" id="description-value-'+experienceIndexer+'">\
+                                               <div class="form-group">\
+                                                    <label for="description-value-0">Description:</label>\
+                                                    <textarea class="form-control description" rows="4" cols="50" name="description" id="description-value-0">\
+                                                    </textarea>\
                                                </div>\
-                                           </div>');
+                                           </div><br><br><br>');
         // Increase the experienceIndexer so we can add different fields with different indexes
 
         experienceIndexer= experienceIndexer + 1;
     }
 
+    function record_experience(){
 
-    function addNewExperience(){
-
-        // Create the JSON, where we are going to save the values each time this function is called and return them.
-        var experiencesJson = [];
-
-        // Get the job title with JQuery
         var experiences =  $('#experience-container').children('.experience');
 
-        experiences.each(function (exp) {
+        experiences.each(function () {
 
-            var title =  exp.children('.job-title');
+            // Get the job title
+            var title_value = $($(this).children('.form-group')[0]).children('.job_title').val()
 
-            var description =  exp.children('.description')[0];
+            // Get the location value
+            var location_value = $($(this).children('.form-group')[1]).children('.location').val();
 
-            var expJson = { 'title': title, 'location':location, 'description': description};
+            // Get the description value
+            var description_value = $($(this).children('.form-group')[2]).children('.description').val();
 
+            // Build the JSON
+            var expJson = { 'title': title_value, 'location':location_value, 'description': description_value};
+
+            // Populate the experiences array
             experiencesJson.push(expJson);
         });
-
-
-        // Get the job description with JQuery
-        var description = $('#experience-container').children('#description').children('#description-value-'+indexer).val();
-
-        // Get the work location with JQuery
-        var work_location = $('#experience-container').children('#location').children('#location_value-'+indexer).val();
-
-        // Build the experience JSON
-        experienceJSON['jobTitle'] = jobTitle;
-        experienceJSON['description'] = description;
-        experienceJSON['work_location'] = work_location;
-
-
-        // Check if experienceArray was instantiated, if not instantiate it
-        if( typeof experienceArray === typeof undefined){
-            experienceArray = [];
-        }
-
-
     }
 
 
@@ -108,7 +90,7 @@
 
 
 </script>
-<form action="{{ url_for('person') }}" method="post" class="form-horizontal">
+<form action="{{ url_for('person') }}" method="post" id="resume_form" class="form-horizontal">
 
     <!-- FIRST NAME -->
     <div class="form-group">
@@ -202,7 +184,8 @@
             {{ form.minimum_salary_requirement(class_="form-control") }}
         </div>
     </div>
-
+    <!-- Declare the hidden field so we can populate it -->
+     {{ form.experiences() }}
 
     <br/> <br/>
     <label class="control-label col-xs-4"> EXPERIENCE </label>
@@ -210,34 +193,37 @@
 
 
     <div class="form-group" id="experience-container" style="width:300px;">
-        <div class="experience">
-            <div class="form-group" class="job_title">
-                <label class="col-xs-5" for="job_title_value-0">Job Title:</label>
-                <input type="text" name="job_title" id="job_title_value-0">
+
+        <div class="form-group experience">
+
+            <div class="form-group">
+                <label for="job_title_value-0">Job Title:</label>
+                <input class="form-control job_title" type="text" name="job_title" id="job_title_value-0">
             </div>
 
-            <div class="form-group" class="location">
-                Location:<select id="location_value-0" class="form-control col-xs-5" data-style="btn-primary">
-                <option value="Prishtine">Prishtine</option>
-                <option value="Ferizaj">Ferizaj</option>
-                <option value="Gjilan">Gjilan</option>
-                <option value="Prizeren">Prizeren</option>
-            </select>
+            <div class="form-group" >
+                Location:<select class="form-control location" data-style="btn-primary">
+                    <option value="Prishtine">Prishtine</option>
+                    <option value="Ferizaj">Ferizaj</option>
+                    <option value="Gjilan">Gjilan</option>
+                    <option value="Prizeren">Prizeren</option>
+                </select>
             </div>
 
-            <div class="form-group" class="description">
-                <label class="col-xs-5" for="description-value-0">Description:</label>
-                <input type="textarea" name="description" id="description-value-0">
+            <div class="form-group" >
+                <label for="description-value-0">Description:</label>
+                <textarea class="form-control description" rows="4" cols="50" name="description" id="description-value-0"></textarea>
             </div>
+
         </div>
     </div>
-    <button type='button' class="btn" onClick="javscript:add_experience()">Add Experience</button>
+    <button type='button' class="btn" onClick="javascript:add_experience()">Add Experience</button>
 
 
-    <br>
+    <br><br><br>
 
     <div align="center">
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="button" onClick="javascript:submit_form()" class="btn btn-primary">Register</button>
     </div>
     <br>
 
