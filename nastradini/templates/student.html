@@ -1,0 +1,262 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<script>
+    $(document).ready(function() {
+        $('.btn').button();
+       // checkbox enabled select field 
+        $('#python_lang').change(function(){
+            $('#niveli_ptyhon').attr("disabled", false);
+        }); 
+        $('#java_lang').change(function(){
+            $('#niveli_java_lang').attr("disabled", false);
+        }); 
+        $('#vb_lang').change(function(){
+            $('#niveli_vb_lang').attr("disabled", false);
+        }); 
+        $('#csharp_lang').change(function(){
+            $('#niveli_csharp_lang').attr("disabled", false);
+        }); 
+        $('#cpp_lang').change(function(){
+            $('#niveli_cpp_lang').attr("disabled", false);
+        }); 
+        $('#java_script_lang').change(function(){
+            $('#niveli_java_script_lang').attr("disabled", false);
+        }); 
+        $('#ruby_lang').change(function(){
+            $('#niveli_ruby_lang').attr("disabled", false);
+        }); 
+        $('#html_lang').change(function(){
+            $('#niveli_html_lang').attr("disabled", false);
+        }); 
+        $('#css_lang').change(function(){
+            $('#niveli_css_lang').attr("disabled", false);
+        }); 
+        $('#objective_c_lang').change(function(){
+            $('#niveli_objective_c_lang').attr("disabled", false);
+        });
+        $('#php_lang').change(function(){
+            $('#niveli_php_lang').attr("disabled", false);
+        }); 
+        $('#perl_lang').change(function(){
+            $('#niveli_perl_lang').attr("disabled", false);
+        }); 
+        $('#tjera_lang').change(function(){
+            $('#gjuhet_tjera_programuese').attr("disabled", false);
+        });  
+
+        $(".gender" ).children().each(function() {
+
+            var attr = $(this).children().first().attr('checked');
+
+            if (typeof attr !== typeof undefined && attr !== false) {
+                $(this).addClass("active");
+            }
+        });
+    });
+</script>
+
+<form action="{{ url_for('student') }}" method="post" class="form-horizontal">
+
+    <h4>Formulari i Shkathtësive</h4>
+    <hr>
+    <!-- Emri -->
+    <div class="form-group">
+        {{ form.emri.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.emri(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- Mbiemri -->
+    <div class="form-group">
+        {{ form.mbiemri.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.mbiemri(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- Gjinia -->
+    <div class="form-group">
+    {{ form.gjinia.label(class_="control-label col-xs-4") }}
+    <div class="btn-group col-xs-2 gender" data-toggle="buttons">
+        {% for subfield in form.gjinia %}
+            <div class="btn btn-default">
+                {{ subfield }}
+                {{ subfield.label }}
+            </div>
+        {% endfor %}
+        </div> 
+    </div>
+
+    <!-- Qyteti -->
+    <div class="form-group">
+        {{ form.qyteti.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.qyteti(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- E-mail i Programerit -->
+    <div class="form-group">
+        {{ form.e_mail.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.e_mail(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- Universiteti -->
+    <div class="form-group">
+        {{ form.universiteti.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.universiteti(class_="form-control") }}
+        </div>
+    </div>
+
+    <!-- Departamenti -->
+    <div class="form-group">
+        {{ form.departamenti.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.departamenti(class_="form-control") }}
+        </div>
+    </div>
+    <!-- Viti studimit -->
+    <div class="form-group">
+        {{ form.viti_studimit.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.viti_studimit(class_="form-control") }}
+        </div>
+    </div>
+    <br>
+    <label class="control-label col-xs-4">
+        Gjuhet programuese dhe niveli juaj ne ato:
+    </label><hr> 
+    <!-- Gjuhet Programuese -->
+    <ul>
+    <div class="form-group" style="margin-right: 60px">
+    <li>
+        <div class="form-group">
+            <div class="col-xs-offset-4 col-xs-2">
+                {{ form.python_lang }}
+            </div>
+            <div class="form-group col-xs-2 niveli-python">
+                {{ form.niveli_ptyhon(disabled=True, class="form-control niveli") }}
+            </div>
+            <div class="col-xs-2">
+                {{ form.java_lang }}
+            </div>
+            <div class="form-group col-xs-2 " style="margin-right:30px">
+                {{ form.niveli_java_lang(disabled=True, class="form-control niveli") }}
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="form-group">
+            <div class="col-xs-offset-4 col-xs-2">
+                {{ form.vb_lang }}
+            </div>
+            <div class="form-group col-xs-2 ">
+                {{ form.niveli_vb_lang(disabled=True, class="form-control niveli") }}
+            </div>
+            <div class="col-xs-2">
+                {{ form.csharp_lang }}
+            </div>
+            <div class="form-group col-xs-2 " style="margin-right:30px">
+                {{ form.niveli_csharp_lang(disabled=True, class="form-control niveli") }}
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="form-group">
+            <div class="col-xs-offset-4 col-xs-2">
+                {{ form.cpp_lang }}
+            </div>
+            <div class="form-group col-xs-2 ">
+                {{ form.niveli_cpp_lang(disabled=True, class="form-control niveli") }}
+            </div>
+            <div class="col-xs-2">
+                {{ form.java_script_lang }}
+            </div>
+            <div class="form-group col-xs-2 " style="margin-right:30px">
+                {{ form.niveli_java_script_lang(disabled=True, class="form-control niveli") }}
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="form-group">
+            <div class="col-xs-offset-4 col-xs-2">
+                {{ form.ruby_lang }}
+            </div>
+            <div class="form-group col-xs-2 ">
+                {{ form.niveli_ruby_lang(disabled=True, class="form-control niveli") }}
+            </div>
+            <div class="col-xs-2">
+                {{ form.html_lang }}
+            </div>
+            <div class="form-group col-xs-2 " style="margin-right:30px">
+                {{ form.niveli_html_lang(disabled=True, class="form-control niveli") }}
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="form-group">
+            <div class="col-xs-offset-4 col-xs-2">
+                {{ form.css_lang }}
+            </div>
+            <div class="form-group col-xs-2 ">
+                {{ form.niveli_css_lang(disabled=True, class="form-control niveli") }}
+            </div>
+            <div class="col-xs-2">
+                {{ form.objective_c_lang }}
+            </div>
+            <div class="form-group col-xs-2 " style="margin-right:30px">
+                {{ form.niveli_objective_c_lang(disabled=True, class="form-control niveli") }}
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="form-group">
+            <div class="col-xs-offset-4 col-xs-2">
+                {{ form.php_lang }}
+            </div>
+            <div class="form-group col-xs-2 ">
+                {{ form.niveli_php_lang(disabled=True, class="form-control niveli") }}
+            </div>
+            <div class="col-xs-2">
+                {{ form.perl_lang }}
+            </div>
+            <div class="form-group col-xs-2 " style="margin-right:30px">
+                {{ form.niveli_perl_lang(disabled=True, class="form-control niveli") }}
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="form-group">
+            <div class="col-xs-offset-4 col-xs-2">
+                {{ form.tjera_lang }}
+            </div>
+            <div class="col-xs-2">
+                {{ form.gjuhet_tjera_programuese(disabled=True, class="form-control", placeholder="Gjuha, Niveli") }}
+            </div>
+             <label class="col-xs-offset-6" style="margin-right:30px">*Gjuhet tjera programuese(te ndahen me presje)</label>
+        </div>
+    </li>
+    </div>
+    </ul>
+    <br>
+    <!-- Shkathesite Tjera -->
+    <div class="form-group">
+        {{ form.shkathesite_tjera.label(class_="control-label col-xs-4") }}
+        <div class="col-xs-5">
+            {{ form.shkathesite_tjera(class_="form-control") }}
+        </div>
+    </div>
+    <br><hr>
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Regjistrohu</button>
+    </div>
+    <br>
+</form>
+
+{% endblock %}

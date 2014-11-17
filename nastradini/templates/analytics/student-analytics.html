@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<script type="text/javascript">
+	google.load("visualization", "1", {packages:["corechart"]});
+
+	var json_result = {{result|tojson}};
+	var json_result_beginners = json_result['fillestar']
+	var json_result_intermediate = json_result['mesatar']
+	var json_result_advanced = json_result['ekspert']
+
+	$(document).ready(function(){
+		drawBeginnerPieChart();
+		drawIntermediatePieChart();
+		drawExpertPieChart();
+	});
+	
+	function drawBeginnerPieChart(){
+		var title = "Distribution of Beginner Level Programming Skills";
+		drawPieChart(title, "beginner", json_result_beginners);
+	}
+	function drawIntermediatePieChart(){
+		var title = "Distribution of Intermediate Level Programming Skills";
+		drawPieChart(title, "inter", json_result_intermediate);
+	}
+	function drawExpertPieChart(){
+		var title = "Distribution of Advanced Level Programming Skills";
+		drawPieChart(title, "ekspert", json_result_advanced);
+	}
+
+  function drawPieChart(title, containerId, json_result){
+    var data = google.visualization.arrayToDataTable([
+      ['Language', 'Numri'],
+      ['Python',    json_result['python']],
+      ['Java',     json_result['java']],
+      ['VB',    json_result['vb'] ],
+      ['C#',      json_result['csharp']],
+      ['C++',   json_result['cpp'] ],
+      ['JavaScript',      json_result['javascript']],
+      ['Ruby',    json_result['ruby'] ],
+      ['HTML',      json_result['html']],
+      ['CSS',    json_result['css'] ],
+      ['Objective-C',     json_result['objective-c']],
+      ['PHP',    json_result['php'] ],
+      ['Perl',     json_result['perl']],
+      ['Tjera', json_result['tjera']]
+    ]);
+    // Set chart options
+    var options = {
+      'title': title
+    };
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById(containerId));
+    chart.draw(data, options);
+  }
+
+</script>
+<h1>Distribution of Programming Skills Based on Level of Experience</h1>
+<div id="beginner" style="width: 900px; height: 450px"></div>
+<div id="inter" style="width: 900px; height: 450px"></div>
+<div id="ekspert" style="width: 900px; height: 450px"></div>
+{% endblock %}
