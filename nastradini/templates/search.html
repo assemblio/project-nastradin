@@ -68,7 +68,7 @@
             // Add the link to the row which takes you to the profile page
             $(".person-row").click(function() {
                 var resumeId = $(this).attr('data-resume-id');
-                window.location.href = "/profile/" + resumeId
+                window.location.href = "{{ config.BASE_PATH }}/profile/" + resumeId
             });
 
             return true;
