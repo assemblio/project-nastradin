@@ -122,6 +122,9 @@ def register_url_rules(app):
     # Registration form.
     app.add_url_rule('/person', view_func=Person.as_view('person'))
 
+    # Registration form.
+    app.add_url_rule('/student', view_func=Person.as_view('student'))
+
     # Search form.
     app.add_url_rule('/search', view_func=Search.as_view('search'))
 

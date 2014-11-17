@@ -22,11 +22,29 @@
                     {% else %}
                     	<a class="navbar-brand" href="{{ config.BASE_PATH }}">Human Capital Tracker</a>
                     {% endif %}
+
+                    <ul class="nav navbar-nav">
+			          <li class="dropdown">
+			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Register<span class="caret"></span></a>
+			            <ul class="dropdown-menu" role="menu">
+			              <li><a href="{{ url_for('person') }}">Professional</a></li>
+			              <li><a href="{{ url_for('student') }}">Student</a></li>
+			            </ul>
+			          </li>
+			          <li class="dropdown">
+			            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Analytics<span class="caret"></span></a>
+			            <ul class="dropdown-menu" role="menu">
+			              <li><a href="{{ url_for('person') }}">Professionals</a></li>
+			              <li><a href="{{ url_for('student') }}">Students</a></li>
+			            </ul>
+			          </li>
+			          <li>
+			          	<a  href="{{ url_for('search') }}">Search</a>
+			          </li>
+			        </ul>
+
+			        
 				</div>
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<div class="navbar-form navbar-right">
-					</div>
-			  	</div>
 			</div>
 		</nav>
 
