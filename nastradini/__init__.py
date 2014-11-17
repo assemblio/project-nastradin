@@ -107,7 +107,7 @@ from views.json.search import SearchRequest
 #TODO: Need to implement these:
 from views.forms.student import Student
 from views.analytics.studentanalytics import StudentAnalytics
-#from views.analytics.professional import ProfessionalAnalytics
+from views.analytics.professionalanalytics import ProfessionalAnalytics
 #################################################################
 
 
@@ -132,8 +132,8 @@ def register_url_rules(app):
     # Student Registration form.
     app.add_url_rule('/student', view_func=Student.as_view('student'))
 
-    # TODO: Analytics - professionals
-    app.add_url_rule('/professional-analytics', view_func=Person.as_view('prof-analytics'))
+    # Analytics - professional
+    app.add_url_rule('/professional-analytics', view_func=ProfessionalAnalytics.as_view('prof-analytics'))
 
     # Analytics - students
     app.add_url_rule('/student-analytics', view_func=StudentAnalytics.as_view('student-analytics'))

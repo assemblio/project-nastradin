@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Gender', 'Speakers (in millions)'],
+          ['Male', {{gender.male}}], ['Female', {{gender.female}}],
+
+        ]);
+
+        var options = {
+          title: 'Professional Experience Gender Distribution',
+          legend: 'none',
+          pieSliceText: 'label',
+          slices: {  4: {offset: 0.2},
+                    12: {offset: 0.3},
+                    14: {offset: 0.4},
+                    15: {offset: 0.5},
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+
+    // Draw the Indsutry Distribution Chart
+    google.setOnLoadCallback(drawIndustryChart);
+    function drawIndustryChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Element", "Density", ],
+        {% for element in industry %}
+        ["{{element.industry}}", {{element.shuma}} ],
+        {% endfor %}
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" }]);
+
+      var options = {
+        title: "Distribution by Professional Industry",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var industryChart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      industryChart.draw(view, options);
+  }
+  </script>
+    <h1>Distribution of Professional Skills Based on Industry</h1>
+    <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+    <br/><br/><br/><br/>
+    <h1>Distribution of Professional Skills Based on Gender</h1>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+
+
+{% endblock %}
