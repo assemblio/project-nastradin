@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<script>
+	$(document).ready(function() {
+		$( ".btn" ).click(function() {
+	  		window.document.location = "{{ url_for('person') }}";
+		});
+	});
+</script>
+
+
+<div style="margin-left:20%;margin-right:20%">
+	{% for result in results %}
+	<table class="table table-bordered">
+		<tr>
+			<td style="width:120px;"><strong>Position</strong></td>
+			<td>{{ result['title'] }}</td>
+		</tr>
+		<tr>
+			<td><strong>Start Date</strong></td>
+			<td>{{ result['start_date'] }}</td>
+		</tr>
+		<tr>
+			<td><strong>End Date</strong></td>
+			<td>{{ result['end_date'] }}</td>
+		</tr>
+		<tr>
+			<td><strong>Description</strong></td>
+			<td>{{ result['description'] }}</td>
+		</tr>
+		<tr>
+			<td><strong>Requirements</strong></td>
+			<td>
+				<ul class="list-style">
+					{% if result['requirement_1'] != "" %}
+					<li>&bull; {{ result['requirement_1'] }}</li>
+					{% endif %}
+
+					{% if result['requirement_2'] != "" %}
+					<li>&bull; {{ result['requirement_2'] }}</li>
+					{% endif %}
+
+					{% if result['requirement_3'] != "" %}
+					<li>&bull; {{ result['requirement_3'] }}</li>
+					{% endif %}
+
+					{% if result['requirement_4'] != "" %}
+					<li>&bull; {{ result['requirement_4'] }}</li>
+					{% endif %}
+
+					{% if result['requirement_5'] != "" %}
+					<li>&bull; {{ result['requirement_5'] }}</li>
+					{% endif %}
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="right"><button type="button" class="btn btn-primary">Apply</button></td>
+		</tr>
+	</table>
+	<br>
+	{% endfor %}
+</div>
+{% endblock %}

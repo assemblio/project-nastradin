@@ -96,11 +96,19 @@ def configure_logging(app):
 
 
 # Import forms
-from views.index import Index
+from views.browse.workers import BrowseWorkers
+from views.browse.internalpositions import BrowseInternalPositions
+from views.browse.projects import BrowseProjects
+
+
 from views.profile import Profile
 from views.resume import Resume
 from views.forms.person import Person
 from views.forms.search import Search
+
+from views.forms.position import Position
+from views.forms.project import Project
+
 from views.json.search import SearchRequest
 
 ##################################################################
@@ -118,7 +126,7 @@ def register_url_rules(app):
     '''
 
     # Index page.
-    app.add_url_rule('/', view_func=Index.as_view('index'))
+    app.add_url_rule('/', view_func=BrowseWorkers.as_view('index'))
 
     # Profile page.
     app.add_url_rule('/profile/<string:id>', view_func=Profile.as_view('profile'))
@@ -126,11 +134,6 @@ def register_url_rules(app):
     # Generate Resume.
     app.add_url_rule('/resume/<string:resume_id>/<int:template_id>', view_func=Resume.as_view('resume'))
 
-    # Registration form.
-    app.add_url_rule('/person', view_func=Person.as_view('person'))
-
-    # Student Registration form.
-    app.add_url_rule('/student', view_func=Student.as_view('student'))
 
     # Analytics - professional
     app.add_url_rule('/professional-analytics', view_func=ProfessionalAnalytics.as_view('prof-analytics'))
@@ -138,9 +141,26 @@ def register_url_rules(app):
     # Analytics - students
     app.add_url_rule('/student-analytics', view_func=StudentAnalytics.as_view('student-analytics'))
 
-
+    ### FORMS ###
     # Search form.
     app.add_url_rule('/search', view_func=Search.as_view('search'))
 
+    # Registration form.
+    app.add_url_rule('/person', view_func=Person.as_view('person'))
+
+    # Student Registration form.
+    app.add_url_rule('/student', view_func=Student.as_view('student'))
+
+    # Post job form.
+    app.add_url_rule('/position', view_func=Position.as_view('position'))
+
+    app.add_url_rule('/project', view_func=Project.as_view('project'))
+
+    ### BROWSE POSTINGS ###
+    app.add_url_rule('/workers', view_func=BrowseWorkers.as_view('browse_workers'))
+    app.add_url_rule('/internal-positions', view_func=BrowseInternalPositions.as_view('browse_internal_positions'))
+    app.add_url_rule('/projects', view_func=BrowseProjects.as_view('browse_projects'))
+
+    ### JSON ###
     # Search request
     app.add_url_rule('/json/search', view_func=SearchRequest.as_view('search_request'))

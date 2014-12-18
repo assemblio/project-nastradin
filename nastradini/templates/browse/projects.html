@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div style="margin-left:20%;margin-right:20%">
+	{% for result in results %}
+	<table class="table table-bordered">
+		<tr>
+			<td style="width:120px;"><strong>Project</strong></td>
+			<td>{{ result['title'] }}</td>
+		</tr>
+		<tr>
+			<td><strong>Start Date</strong></td>
+			<td>{{ result['start_date'] }}</td>
+		</tr>
+		<tr>
+			<td><strong>End Date</strong></td>
+			<td>{{ result['end_date'] }}</td>
+		</tr>
+		<tr>
+			<td><strong>Description</strong></td>
+			<td>{{ result['description'] }}</td>
+		</tr>
+		<tr>
+			<td><strong>Positions</strong></td>
+			<td>
+				<ul class="list-style">
+					{% if result['position_1'] != "" %}
+					<li>&bull; <a href="{{ url_for('person') }}">{{ result['position_1'] }}</a></li>
+					{% endif %}
+
+					{% if result['position_2'] != "" %}
+					<li>&bull; <a href="{{ url_for('person') }}">{{ result['position_2'] }}</a></li>
+					{% endif %}
+
+					{% if result['position_3'] != "" %}
+					<li>&bull; <a href="{{ url_for('person') }}">{{ result['position_3'] }}</a></li>
+					{% endif %}
+
+					{% if result['position_4'] != "" %}
+					<li>&bull; <a href="{{ url_for('person') }}">{{ result['position_4'] }}</a></li>
+					{% endif %}
+
+					{% if result['position_5'] != "" %}
+					<li>&bull; <a href="{{ url_for('person') }}">{{ result['position_5'] }}</a></li>
+					{% endif %}
+				</ul>
+			</td>
+		</tr>
+	</table>
+	<br>
+	{% endfor %}
+</div>
+{% endblock %}

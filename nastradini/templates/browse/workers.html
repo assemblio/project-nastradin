@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<!-- Modal Message: Operation Not Implemented -->
+<div class="modal fade not-implemented-message-model" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<br>
+			The possibility to edit a person's resume is not available one this prototype.
+			<br><br>
+		</div>
+	</div>
+</div>
+
+<div class="person-table-list" style="padding:25px;">
+
+<table class="table table-hover" style="width:800px">  
+
+{% for result in results %}
+	{% if loop.index == 1 %}
+		<thead>
+		<tr>
+			<th></th>
+			<th>First Name</th>
+			<th>Last Name</th> 
+			<th>Gender</th>
+			<th>Birth Date</th>
+			<th>City</th>
+			<th>Industry</th>
+			<th>Profession</th>
+			<th>Minimum Salary Requirement</th>
+			<th>Highest Level Of Education</th>
+		</tr>
+		</thead>
+		<tbody>
+	{% endif %}
+		<tr onclick="window.document.location='{{ config.BASE_PATH }}/profile/{{ result['doc_id']}}';">
+			<td>
+				{{ loop.index }}
+			</td>
+			<td>
+				{{result['first_name']}}
+			</td>
+			<td>
+				{{result['last_name']}}
+			</td>
+			<td>
+				{{result['gender']}}
+			</td>
+			<td>
+				{{result['birth_date']}}
+			</td>
+			<td>
+				{{result['city']}}
+			</td>
+			<td>
+				{{result['industry']}}
+			</td>
+			<td>
+				{{result['profession']}}
+			</td>
+			
+			<td>
+				{{result['minimum_salary_requirement']}}
+			</td>
+			<td>
+				{{result['highest_level_of_education']}}
+			</td>
+		</tr>
+{% endfor %}
+  		</tbody>
+</table>
+</div>
+
+
+{% endblock %}
