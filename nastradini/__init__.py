@@ -95,6 +95,8 @@ def configure_logging(app):
     app.logger.info('Logging to: %s', log_path)
 
 
+from views.index import Index
+
 # Import forms
 from views.browse.workers import BrowseWorkers
 from views.browse.internalpositions import BrowseInternalPositions
@@ -126,7 +128,7 @@ def register_url_rules(app):
     '''
 
     # Index page.
-    app.add_url_rule('/', view_func=BrowseWorkers.as_view('index'))
+    app.add_url_rule('/', view_func=Index.as_view('index'))
 
     # Profile page.
     app.add_url_rule('/profile/<string:id>', view_func=Profile.as_view('profile'))
